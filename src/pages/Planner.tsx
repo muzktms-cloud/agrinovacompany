@@ -113,7 +113,7 @@ const Planner = () => {
           <Link to="/" className="flex items-center gap-2">
             <Sprout className="h-8 w-8 text-primary" />
             <span className="font-display text-2xl font-bold text-foreground">
-              GreenField
+              AgriNova
             </span>
           </Link>
           
