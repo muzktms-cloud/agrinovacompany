@@ -1,4 +1,5 @@
 import { ArrowRight, Leaf } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import heroImage from "@/assets/hero-farm.jpg";
 
@@ -34,9 +35,11 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 animate-fade-in-delay-2">
-          <Button variant="hero" size="xl">
-            Start Growing
-            <ArrowRight className="h-5 w-5" />
+          <Button variant="hero" size="xl" asChild>
+            <Link to="/planner">
+              Start Growing
+              <ArrowRight className="h-5 w-5" />
+            </Link>
           </Button>
           <Button variant="heroOutline" size="xl">
             Learn More
