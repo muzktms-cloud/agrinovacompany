@@ -1,36 +1,43 @@
-import { Cloud, Droplets, LineChart, Sprout, Sun, Tractor } from "lucide-react";
+import { Cloud, Droplets, LineChart, Sprout, Bug, MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 import FeatureCard from "./FeatureCard";
 
 const features = [
   {
-    icon: Sprout,
-    title: "Crop Management",
-    description: "Track your crops from seed to harvest with intelligent monitoring and recommendations.",
+    icon: Bug,
+    title: "AI Pest Detection",
+    description: "Upload photos of pests or plant damage and get instant AI identification with treatment recommendations.",
+    link: "/pest-detector",
   },
   {
     icon: Cloud,
-    title: "Weather Insights",
-    description: "Real-time weather data and forecasts tailored to your specific location and crops.",
+    title: "Weather Advisor",
+    description: "Real-time weather data with AI-powered farming advice tailored to today's conditions.",
+    link: "/weather",
+  },
+  {
+    icon: Sprout,
+    title: "Crop Planning",
+    description: "Schedule planting, watering, and harvest dates with smart reminders to stay on track.",
+    link: "/planner",
   },
   {
     icon: Droplets,
-    title: "Smart Irrigation",
-    description: "Optimize water usage with AI-powered irrigation scheduling and soil moisture tracking.",
+    title: "Irrigation Tips",
+    description: "Get daily irrigation recommendations based on weather, humidity, and precipitation forecasts.",
+    link: "/weather",
   },
   {
     icon: LineChart,
-    title: "Yield Analytics",
-    description: "Comprehensive analytics to track yields, identify trends, and improve productivity.",
+    title: "Risk Alerts",
+    description: "Receive pest risk assessments and weather warnings to protect your crops proactively.",
+    link: "/weather",
   },
   {
-    icon: Sun,
-    title: "Growing Conditions",
-    description: "Monitor sunlight, temperature, and humidity to ensure optimal growing conditions.",
-  },
-  {
-    icon: Tractor,
-    title: "Equipment Tracking",
-    description: "Keep track of your farming equipment, maintenance schedules, and usage history.",
+    icon: MapPin,
+    title: "Location-Based",
+    description: "All advice is customized to your farm's exact location for maximum accuracy.",
+    link: "/weather",
   },
 ];
 
@@ -43,23 +50,24 @@ const Features = () => {
             Features
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Everything You Need to Thrive
+            Smart Tools for Modern Farming
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-            Powerful tools designed by farmers, for farmers. Simplify your operations 
-            and focus on what matters most.
+            AgriNova combines AI technology with agricultural expertise to help you 
+            make better decisions every day.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <FeatureCard
-              key={feature.title}
-              icon={feature.icon}
-              title={feature.title}
-              description={feature.description}
-              delay={index * 100}
-            />
+            <Link key={feature.title} to={feature.link}>
+              <FeatureCard
+                icon={feature.icon}
+                title={feature.title}
+                description={feature.description}
+                delay={index * 100}
+              />
+            </Link>
           ))}
         </div>
       </div>
