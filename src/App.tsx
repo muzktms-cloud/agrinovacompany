@@ -9,6 +9,8 @@ import PestDetector from "./pages/PestDetector";
 import WeatherAdvisor from "./pages/WeatherAdvisor";
 import CropHealthScanner from "./pages/CropHealthScanner";
 import HardwareStore from "./pages/HardwareStore";
+import CropChatbot from "./pages/CropChatbot";
+import CropAdvisor from "./pages/CropAdvisor";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +28,8 @@ const App = () => (
           <Route path="/weather" element={<WeatherAdvisor />} />
           <Route path="/crop-health" element={<CropHealthScanner />} />
           <Route path="/store" element={<HardwareStore />} />
+          <Route path="/chatbot" element={<CropChatbot />} />
+          <Route path="/advisor" element={<CropAdvisor />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

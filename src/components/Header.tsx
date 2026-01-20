@@ -9,13 +9,21 @@ const Header = () => {
   const location = useLocation();
 
   const navLinks = [
-    { href: "/#features", label: "Features" },
+    { href: "/#features", label: "Features", isHash: true },
+    { href: "/chatbot", label: "AI Chat" },
+    { href: "/advisor", label: "Advisor" },
     { href: "/planner", label: "Planner" },
-    { href: "/pest-detector", label: "Pest Detector" },
-    { href: "/crop-health", label: "Crop Health" },
     { href: "/weather", label: "Weather" },
     { href: "/store", label: "Store" },
   ];
+
+  const handleNavClick = (href: string, isHash?: boolean) => {
+    if (isHash && location.pathname === "/") {
+      const element = document.getElementById("features");
+      if (element) element.scrollIntoView({ behavior: "smooth" });
+    }
+    setMobileMenuOpen(false);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
