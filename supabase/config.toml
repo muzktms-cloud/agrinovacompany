@@ -14,3 +14,9 @@ verify_jwt = false
 
 [functions.crop-advisor]
 verify_jwt = false
+
+[functions.crop-simulator]
+verify_jwt = false
+
+[functions.harvest-predictor]
+verify_jwt = false
