@@ -12,7 +12,9 @@ const Header = () => {
     { href: "/#features", label: "Features" },
     { href: "/planner", label: "Planner" },
     { href: "/pest-detector", label: "Pest Detector" },
-    { href: "/weather", label: "Weather Advisor" },
+    { href: "/crop-health", label: "Crop Health" },
+    { href: "/weather", label: "Weather" },
+    { href: "/store", label: "Store" },
   ];
 
   return (

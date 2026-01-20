@@ -113,8 +113,11 @@ const CropCalendar = ({ events, onDateClick, onEventClick }: CropCalendarProps) 
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-6 w-6 opacity-0 group-hover:opacity-100 hover:opacity-100"
-                    onClick={() => onDateClick(day)}
+                    className="h-6 w-6 hover:bg-primary/10"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onDateClick(day);
+                    }}
                   >
                     <Plus className="h-3 w-3" />
                   </Button>
