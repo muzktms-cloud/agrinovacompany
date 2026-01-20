@@ -79,9 +79,21 @@ const PestDetector = () => {
       }
 
       setResult(data);
+      
+      // Save to pest history
+      await supabase.from('pest_detections').insert({
+        crop_type: cropType || 'Unknown',
+        pest_name: data.pestName || 'Unknown',
+        threat_level: data.threatLevel || 'Unknown',
+        description: data.description || '',
+        damage: data.damageDescription || '',
+        treatment: data.treatment?.join('; ') || '',
+        prevention: data.prevention?.join('; ') || '',
+      });
+
       toast({
         title: "Analysis complete",
-        description: `Identified: ${data.pestName || "See results below"}`,
+        description: `Identified: ${data.pestName || "See results below"}. Saved to history.`,
       });
     } catch (error) {
       console.error("Error analyzing pest:", error);

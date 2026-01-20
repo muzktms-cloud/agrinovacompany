@@ -13,19 +13,25 @@ const Footer = () => {
             </span>
           </Link>
           
-          <p className="text-sage-light/70 text-sm">
-            © {new Date().getFullYear()} AgriNova. Innovating agriculture for tomorrow.
+          <p className="text-sage-light/70 text-sm text-center">
+            © {new Date().getFullYear()} AgriNova. <span className="font-semibold">Predict, Protect, Prosper.</span>
           </p>
           
-          <div className="flex gap-6">
+          <div className="flex flex-wrap justify-center gap-6">
             <Link to="/pest-detector" className="text-sage-light/70 hover:text-sage-light transition-colors text-sm">
               Pest Detector
+            </Link>
+            <Link to="/crop-health" className="text-sage-light/70 hover:text-sage-light transition-colors text-sm">
+              Crop Health
             </Link>
             <Link to="/weather" className="text-sage-light/70 hover:text-sage-light transition-colors text-sm">
               Weather
             </Link>
             <Link to="/planner" className="text-sage-light/70 hover:text-sage-light transition-colors text-sm">
               Planner
+            </Link>
+            <Link to="/store" className="text-sage-light/70 hover:text-sage-light transition-colors text-sm">
+              Store
             </Link>
           </div>
         </div>

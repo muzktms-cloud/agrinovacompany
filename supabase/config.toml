@@ -5,3 +5,10 @@ verify_jwt = false
 
 [functions.weather-advisor]
 verify_jwt = false
+
+[functions.crop-health-scanner]
+verify_jwt = false
+verify_jwt = false
+
+[functions.weather-advisor]
+verify_jwt = false

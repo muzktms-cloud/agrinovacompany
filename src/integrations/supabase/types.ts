@@ -14,7 +14,164 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      crop_events: {
+        Row: {
+          created_at: string
+          crop: string
+          date: string
+          event_type: string
+          id: string
+          notes: string | null
+          reminder: boolean | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          crop: string
+          date: string
+          event_type: string
+          id?: string
+          notes?: string | null
+          reminder?: boolean | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          crop?: string
+          date?: string
+          event_type?: string
+          id?: string
+          notes?: string | null
+          reminder?: boolean | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      hardware_products: {
+        Row: {
+          category: string | null
+          cloud_analytics_price: number | null
+          created_at: string
+          description: string | null
+          has_cloud_analytics: boolean | null
+          id: string
+          image_url: string | null
+          in_stock: boolean | null
+          name: string
+          price_rupees: number
+        }
+        Insert: {
+          category?: string | null
+          cloud_analytics_price?: number | null
+          created_at?: string
+          description?: string | null
+          has_cloud_analytics?: boolean | null
+          id?: string
+          image_url?: string | null
+          in_stock?: boolean | null
+          name: string
+          price_rupees: number
+        }
+        Update: {
+          category?: string | null
+          cloud_analytics_price?: number | null
+          created_at?: string
+          description?: string | null
+          has_cloud_analytics?: boolean | null
+          id?: string
+          image_url?: string | null
+          in_stock?: boolean | null
+          name?: string
+          price_rupees?: number
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          event_id: string | null
+          id: string
+          is_read: boolean | null
+          message: string
+          notify_at: string
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_id?: string | null
+          id?: string
+          is_read?: boolean | null
+          message: string
+          notify_at: string
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_id?: string | null
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          notify_at?: string
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_event_id_fkey"
+            columns: ["event_id"]
+            isOneToOne: false
+            referencedRelation: "crop_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pest_detections: {
+        Row: {
+          created_at: string
+          crop_type: string
+          damage: string | null
+          description: string | null
+          id: string
+          image_url: string | null
+          pest_name: string | null
+          prevention: string | null
+          threat_level: string | null
+          treatment: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          crop_type: string
+          damage?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          pest_name?: string | null
+          prevention?: string | null
+          threat_level?: string | null
+          treatment?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          crop_type?: string
+          damage?: string | null
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          pest_name?: string | null
+          prevention?: string | null
+          threat_level?: string | null
+          treatment?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

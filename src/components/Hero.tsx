@@ -29,8 +29,12 @@ const Hero = () => {
           <span className="text-harvest">with AgriNova</span>
         </h1>
 
-        <p className="max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/80 mb-10 opacity-0 animate-fade-in-delay-2">
-          AI-powered pest detection, weather-based advice, and smart crop planning. 
+        <p className="max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/80 mb-4 opacity-0 animate-fade-in-delay-2">
+          <span className="font-semibold text-harvest">Predict, Protect, Prosper.</span>
+        </p>
+        
+        <p className="max-w-2xl mx-auto text-lg md:text-xl text-primary-foreground/70 mb-10 opacity-0 animate-fade-in-delay-2">
+          AI-powered pest detection, crop health scanning, weather-based advice, and smart crop planning. 
           Everything you need to maximize yields and protect your harvest.
         </p>
 
