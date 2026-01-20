@@ -8,7 +8,9 @@ verify_jwt = false
 
 [functions.crop-health-scanner]
 verify_jwt = false
+
+[functions.crop-chatbot]
 verify_jwt = false
 
-[functions.weather-advisor]
+[functions.crop-advisor]
 verify_jwt = false

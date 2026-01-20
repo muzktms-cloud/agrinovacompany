@@ -1,6 +1,7 @@
-import { Cloud, Droplets, LineChart, Sprout, Bug, MapPin } from "lucide-react";
+import { Cloud, Droplets, LineChart, Sprout, Bug, MessageCircle, Leaf } from "lucide-react";
 import { Link } from "react-router-dom";
 import FeatureCard from "./FeatureCard";
+import { motion } from "framer-motion";
 
 const features = [
   {
@@ -23,9 +24,9 @@ const features = [
   },
   {
     icon: Droplets,
-    title: "Irrigation Tips",
-    description: "Get daily irrigation recommendations based on weather, humidity, and precipitation forecasts.",
-    link: "/weather",
+    title: "Crop Health Scanner",
+    description: "Scan your crops to identify healthy, struggling, or failing sections with actionable insights.",
+    link: "/crop-health",
   },
   {
     icon: LineChart,
@@ -34,18 +35,45 @@ const features = [
     link: "/weather",
   },
   {
-    icon: MapPin,
-    title: "Location-Based",
-    description: "All advice is customized to your farm's exact location for maximum accuracy.",
-    link: "/weather",
+    icon: MessageCircle,
+    title: "AI Crop Chatbot",
+    description: "Chat with our AI assistant anytime for instant advice on pests, diseases, irrigation, and more.",
+    link: "/chatbot",
+  },
+  {
+    icon: Leaf,
+    title: "Personal Crop Advisor",
+    description: "Enter your crop and location to receive tailored daily guidance, from planting to harvest.",
+    link: "/advisor",
   },
 ];
 
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
+
 const Features = () => {
   return (
-    <section id="features" className="py-24 bg-muted/30">
+    <section id="features" className="py-24 bg-muted/30 scroll-mt-20">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <span className="inline-block text-sm font-semibold text-accent uppercase tracking-wider mb-4">
             Features
           </span>
@@ -56,20 +84,28 @@ const Features = () => {
             AgriNova combines AI technology with agricultural expertise to help you 
             make better decisions every day.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <Link key={feature.title} to={feature.link}>
-              <FeatureCard
-                icon={feature.icon}
-                title={feature.title}
-                description={feature.description}
-                delay={index * 100}
-              />
-            </Link>
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          variants={container}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+        >
+          {features.map((feature) => (
+            <motion.div key={feature.title} variants={item}>
+              <Link to={feature.link} className="block h-full">
+                <FeatureCard
+                  icon={feature.icon}
+                  title={feature.title}
+                  description={feature.description}
+                  delay={0}
+                />
+              </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
