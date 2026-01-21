@@ -5,13 +5,14 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
-import { FlaskConical, Play, RefreshCw, TrendingUp, Droplets, Sun, Bug, DollarSign, Loader2, Zap, Activity, BarChart3 } from "lucide-react";
+import { FlaskConical, Play, RefreshCw, TrendingUp, Droplets, Sun, Bug, DollarSign, Loader2, Zap, Activity, BarChart3, Search } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, BarChart, Bar, Cell } from "recharts";
+import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { crops, regions, irrigationTypes } from "@/constants/agriculture-data";
 
 interface SimulationResult {
   expectedYield: string;
@@ -22,17 +23,6 @@ interface SimulationResult {
   recommendations: string[];
   monthlyBreakdown: { month: string; activity: string; risk: string }[];
 }
-
-const crops = [
-  "Rice", "Wheat", "Cotton", "Sugarcane", "Maize", "Soybean", "Potato", "Tomato", 
-  "Onion", "Chili", "Tea", "Jute", "Banana", "Mango"
-];
-
-const regions = [
-  "Punjab, India", "Maharashtra, India", "Tamil Nadu, India", "West Bengal, India",
-  "Dhaka, Bangladesh", "Chittagong, Bangladesh", "Punjab, Pakistan", "Sindh, Pakistan",
-  "Central Province, Sri Lanka", "Kathmandu Valley, Nepal", "Paro, Bhutan"
-];
 
 const simulationSteps = [
   { label: "Analyzing Climate Data", icon: Sun },
@@ -102,15 +92,16 @@ const CropSimulator = () => {
     setSimulationStep(0);
   };
 
-  // Generate chart data from results
-  const getMonthlyChartData = () => {
-    if (!result) return [];
-    return result.monthlyBreakdown.map((m, i) => ({
-      month: m.month,
-      risk: m.risk === "Low" ? 20 : m.risk === "Medium" ? 50 : 80,
-      activity: 100 - (i * 10),
-    }));
-  };
+  const [cropSearch, setCropSearch] = useState("");
+  const [regionSearch, setRegionSearch] = useState("");
+
+  const filteredCrops = crops.filter(c => 
+    c.toLowerCase().includes(cropSearch.toLowerCase())
+  );
+
+  const filteredRegions = regions.filter(r => 
+    r.toLowerCase().includes(regionSearch.toLowerCase())
+  );
 
   const getRadarData = () => {
     if (!result) return [];
@@ -137,7 +128,7 @@ const CropSimulator = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background gradient-mesh">
       <Header />
       
       <main className="flex-1 container mx-auto px-6 py-12">
@@ -188,17 +179,33 @@ const CropSimulator = () => {
                   transition={{ delay: 0.2 }}
                 >
                   <Label className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">1</span>
+                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-primary to-[hsl(var(--olive))] flex items-center justify-center text-xs font-bold text-primary-foreground">1</span>
                     Crop Type
                   </Label>
                   <Select value={crop} onValueChange={setCrop}>
-                    <SelectTrigger className="border-primary/20 focus:border-primary transition-colors">
-                      <SelectValue placeholder="Select a crop" />
+                    <SelectTrigger className="border-primary/20 focus:border-primary transition-colors h-11">
+                      <SelectValue placeholder="Search or select a crop..." />
                     </SelectTrigger>
-                    <SelectContent>
-                      {crops.map((c) => (
+                    <SelectContent className="max-h-[300px]">
+                      <div className="px-2 pb-2 sticky top-0 bg-popover">
+                        <div className="flex items-center border rounded-md px-2">
+                          <Search className="h-4 w-4 text-muted-foreground" />
+                          <input 
+                            placeholder="Search crops..." 
+                            className="flex-1 px-2 py-1.5 text-sm bg-transparent outline-none"
+                            value={cropSearch}
+                            onChange={(e) => setCropSearch(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      {filteredCrops.slice(0, 30).map((c) => (
                         <SelectItem key={c} value={c}>{c}</SelectItem>
                       ))}
+                      {filteredCrops.length > 30 && (
+                        <div className="px-2 py-1 text-xs text-muted-foreground text-center">
+                          +{filteredCrops.length - 30} more crops...
+                        </div>
+                      )}
                     </SelectContent>
                   </Select>
                 </motion.div>
@@ -210,17 +217,33 @@ const CropSimulator = () => {
                   transition={{ delay: 0.3 }}
                 >
                   <Label className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">2</span>
+                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[hsl(var(--terracotta))] to-accent flex items-center justify-center text-xs font-bold text-white">2</span>
                     Growing Region
                   </Label>
                   <Select value={region} onValueChange={setRegion}>
-                    <SelectTrigger className="border-primary/20 focus:border-primary transition-colors">
-                      <SelectValue placeholder="Select your region" />
+                    <SelectTrigger className="border-primary/20 focus:border-primary transition-colors h-11">
+                      <SelectValue placeholder="Search or select a region..." />
                     </SelectTrigger>
-                    <SelectContent>
-                      {regions.map((r) => (
+                    <SelectContent className="max-h-[300px]">
+                      <div className="px-2 pb-2 sticky top-0 bg-popover">
+                        <div className="flex items-center border rounded-md px-2">
+                          <Search className="h-4 w-4 text-muted-foreground" />
+                          <input 
+                            placeholder="Search regions..." 
+                            className="flex-1 px-2 py-1.5 text-sm bg-transparent outline-none"
+                            value={regionSearch}
+                            onChange={(e) => setRegionSearch(e.target.value)}
+                          />
+                        </div>
+                      </div>
+                      {filteredRegions.slice(0, 30).map((r) => (
                         <SelectItem key={r} value={r}>{r}</SelectItem>
                       ))}
+                      {filteredRegions.length > 30 && (
+                        <div className="px-2 py-1 text-xs text-muted-foreground text-center">
+                          +{filteredRegions.length - 30} more regions...
+                        </div>
+                      )}
                     </SelectContent>
                   </Select>
                 </motion.div>
@@ -232,7 +255,7 @@ const CropSimulator = () => {
                   transition={{ delay: 0.4 }}
                 >
                   <Label className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">3</span>
+                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[hsl(var(--olive))] to-primary flex items-center justify-center text-xs font-bold text-white">3</span>
                     Land Size (Acres)
                   </Label>
                   <Input
@@ -251,19 +274,17 @@ const CropSimulator = () => {
                   transition={{ delay: 0.5 }}
                 >
                   <Label className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">4</span>
+                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[hsl(var(--sky))] to-[hsl(var(--mint))] flex items-center justify-center text-xs font-bold text-white">4</span>
                     Irrigation Type
                   </Label>
                   <Select value={irrigationType} onValueChange={setIrrigationType}>
-                    <SelectTrigger className="border-primary/20 focus:border-primary transition-colors">
+                    <SelectTrigger className="border-primary/20 focus:border-primary transition-colors h-11">
                       <SelectValue placeholder="Select irrigation method" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="rainfed">Rainfed</SelectItem>
-                      <SelectItem value="canal">Canal Irrigation</SelectItem>
-                      <SelectItem value="drip">Drip Irrigation</SelectItem>
-                      <SelectItem value="sprinkler">Sprinkler System</SelectItem>
-                      <SelectItem value="tubewell">Tube Well</SelectItem>
+                      {irrigationTypes.map((type) => (
+                        <SelectItem key={type.value} value={type.value}>{type.label}</SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                 </motion.div>
@@ -275,8 +296,8 @@ const CropSimulator = () => {
                   transition={{ delay: 0.6 }}
                 >
                   <Label className="flex items-center gap-2">
-                    <span className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-xs font-bold text-primary">5</span>
-                    Budget: <span className="text-primary font-bold">₹{budget[0].toLocaleString()}</span>
+                    <span className="w-6 h-6 rounded-full bg-gradient-to-br from-accent to-[hsl(var(--coral))] flex items-center justify-center text-xs font-bold text-white">5</span>
+                    Budget: <span className="text-accent font-bold">₹{budget[0].toLocaleString()}</span>
                   </Label>
                   <Slider
                     value={budget}
