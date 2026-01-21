@@ -8,106 +8,114 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Cream/wheat background */
-    --background: 40 33% 96%;
-    --foreground: 30 10% 15%;
+    /* Warm cream background with slight gradient feel */
+    --background: 42 38% 95%;
+    --foreground: 25 15% 12%;
 
     /* Warm cream cards */
-    --card: 45 40% 98%;
-    --card-foreground: 30 10% 15%;
+    --card: 45 45% 98%;
+    --card-foreground: 25 15% 12%;
 
-    --popover: 45 40% 98%;
-    --popover-foreground: 30 10% 15%;
+    --popover: 45 45% 98%;
+    --popover-foreground: 25 15% 12%;
 
-    /* Sage green primary */
-    --primary: 142 25% 35%;
-    --primary-foreground: 45 40% 98%;
+    /* Vibrant sage green primary */
+    --primary: 145 35% 38%;
+    --primary-foreground: 45 45% 98%;
 
     /* Warm tan secondary */
-    --secondary: 35 30% 90%;
-    --secondary-foreground: 30 10% 25%;
+    --secondary: 38 35% 92%;
+    --secondary-foreground: 25 15% 20%;
 
     /* Muted sage */
-    --muted: 100 15% 90%;
-    --muted-foreground: 30 10% 45%;
+    --muted: 105 18% 92%;
+    --muted-foreground: 25 12% 40%;
 
-    /* Harvest gold accent */
-    --accent: 38 80% 55%;
-    --accent-foreground: 30 10% 10%;
+    /* Vibrant harvest gold accent */
+    --accent: 40 90% 52%;
+    --accent-foreground: 25 15% 8%;
 
-    --destructive: 0 65% 50%;
-    --destructive-foreground: 45 40% 98%;
+    --destructive: 0 72% 52%;
+    --destructive-foreground: 45 45% 98%;
 
-    --border: 35 20% 85%;
-    --input: 35 20% 88%;
-    --ring: 142 25% 35%;
+    --border: 38 25% 82%;
+    --input: 38 25% 88%;
+    --ring: 145 35% 38%;
 
     --radius: 0.75rem;
 
-    /* Custom agriculture tokens */
-    --sage: 142 25% 35%;
-    --sage-light: 142 20% 85%;
-    --olive: 85 25% 35%;
-    --harvest: 38 80% 55%;
-    --wheat: 40 33% 96%;
-    --earth: 25 30% 25%;
-    --terracotta: 15 50% 50%;
+    /* Custom agriculture tokens - more vibrant */
+    --sage: 145 35% 38%;
+    --sage-light: 145 28% 88%;
+    --olive: 88 32% 38%;
+    --harvest: 40 90% 52%;
+    --wheat: 42 38% 95%;
+    --earth: 22 35% 22%;
+    --terracotta: 18 62% 48%;
+    --sky: 200 75% 55%;
+    --coral: 12 85% 60%;
+    --lavender: 270 45% 65%;
+    --mint: 165 45% 50%;
 
-    --sidebar-background: 142 20% 95%;
-    --sidebar-foreground: 30 10% 25%;
-    --sidebar-primary: 142 25% 35%;
-    --sidebar-primary-foreground: 45 40% 98%;
-    --sidebar-accent: 38 80% 55%;
-    --sidebar-accent-foreground: 30 10% 10%;
-    --sidebar-border: 35 20% 85%;
-    --sidebar-ring: 142 25% 35%;
+    --sidebar-background: 145 25% 96%;
+    --sidebar-foreground: 25 15% 20%;
+    --sidebar-primary: 145 35% 38%;
+    --sidebar-primary-foreground: 45 45% 98%;
+    --sidebar-accent: 40 90% 52%;
+    --sidebar-accent-foreground: 25 15% 8%;
+    --sidebar-border: 38 25% 82%;
+    --sidebar-ring: 145 35% 38%;
   }
 
   .dark {
-    --background: 30 15% 10%;
-    --foreground: 40 20% 90%;
+    --background: 25 18% 8%;
+    --foreground: 42 25% 92%;
 
-    --card: 30 15% 14%;
-    --card-foreground: 40 20% 90%;
+    --card: 25 18% 12%;
+    --card-foreground: 42 25% 92%;
 
-    --popover: 30 15% 14%;
-    --popover-foreground: 40 20% 90%;
+    --popover: 25 18% 12%;
+    --popover-foreground: 42 25% 92%;
 
-    --primary: 142 30% 45%;
-    --primary-foreground: 30 15% 10%;
+    --primary: 145 40% 48%;
+    --primary-foreground: 25 18% 8%;
 
-    --secondary: 30 15% 20%;
-    --secondary-foreground: 40 20% 90%;
+    --secondary: 25 18% 18%;
+    --secondary-foreground: 42 25% 92%;
 
-    --muted: 30 10% 20%;
-    --muted-foreground: 40 15% 60%;
+    --muted: 25 12% 18%;
+    --muted-foreground: 42 18% 58%;
 
-    --accent: 38 75% 50%;
-    --accent-foreground: 30 15% 10%;
+    --accent: 40 85% 55%;
+    --accent-foreground: 25 18% 8%;
 
-    --destructive: 0 60% 40%;
-    --destructive-foreground: 40 20% 90%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 42 25% 92%;
 
-    --border: 30 10% 20%;
-    --input: 30 10% 20%;
-    --ring: 142 30% 45%;
+    --border: 25 12% 18%;
+    --input: 25 12% 18%;
+    --ring: 145 40% 48%;
 
-    --sage: 142 30% 45%;
-    --sage-light: 142 15% 25%;
-    --olive: 85 20% 40%;
-    --harvest: 38 75% 50%;
-    --wheat: 40 15% 15%;
-    --earth: 25 15% 60%;
-    --terracotta: 15 45% 45%;
+    --sage: 145 40% 48%;
+    --sage-light: 145 18% 22%;
+    --olive: 88 25% 42%;
+    --harvest: 40 85% 55%;
+    --wheat: 42 18% 12%;
+    --earth: 22 18% 58%;
+    --terracotta: 18 55% 48%;
+    --sky: 200 65% 50%;
+    --coral: 12 75% 55%;
+    --lavender: 270 38% 55%;
+    --mint: 165 38% 45%;
 
-    --sidebar-background: 30 15% 12%;
-    --sidebar-foreground: 40 20% 90%;
-    --sidebar-primary: 142 30% 45%;
-    --sidebar-primary-foreground: 30 15% 10%;
-    --sidebar-accent: 38 75% 50%;
-    --sidebar-accent-foreground: 30 15% 10%;
-    --sidebar-border: 30 10% 20%;
-    --sidebar-ring: 142 30% 45%;
+    --sidebar-background: 25 18% 10%;
+    --sidebar-foreground: 42 25% 92%;
+    --sidebar-primary: 145 40% 48%;
+    --sidebar-primary-foreground: 25 18% 8%;
+    --sidebar-accent: 40 85% 55%;
+    --sidebar-accent-foreground: 25 18% 8%;
+    --sidebar-border: 25 12% 18%;
+    --sidebar-ring: 145 40% 48%;
   }
 }
 
@@ -118,5 +126,37 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Animated gradient backgrounds */
+@layer utilities {
+  .gradient-mesh {
+    background: 
+      radial-gradient(at 40% 20%, hsl(var(--primary) / 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsl(var(--accent) / 0.12) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsl(var(--olive) / 0.1) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, hsl(var(--terracotta) / 0.08) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsl(var(--mint) / 0.1) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, hsl(var(--sky) / 0.08) 0px, transparent 50%);
+  }
+
+  .gradient-hero {
+    background: 
+      linear-gradient(135deg, hsl(var(--primary) / 0.08) 0%, transparent 50%),
+      linear-gradient(225deg, hsl(var(--accent) / 0.1) 0%, transparent 50%),
+      linear-gradient(315deg, hsl(var(--terracotta) / 0.06) 0%, transparent 50%);
+  }
+
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-md border border-border/50 shadow-lg;
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 40px -10px hsl(var(--primary) / 0.4);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 40px -10px hsl(var(--accent) / 0.5);
   }
 }
