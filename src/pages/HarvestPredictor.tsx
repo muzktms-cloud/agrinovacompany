@@ -236,47 +236,6 @@ const HarvestPredictor = () => {
             </Card>
           </motion.div>
 
-                <div className="space-y-2">
-                  <Label>Planting Date *</Label>
-                  <Input
-                    type="date"
-                    value={plantingDate}
-                    onChange={(e) => setPlantingDate(e.target.value)}
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <Label>Current Field Conditions (Optional)</Label>
-                  <Textarea
-                    placeholder="Describe any observations: soil moisture, plant health, pest sightings, irrigation status..."
-                    value={fieldConditions}
-                    onChange={(e) => setFieldConditions(e.target.value)}
-                    rows={4}
-                  />
-                </div>
-
-                <Button 
-                  onClick={getPrediction} 
-                  disabled={isLoading}
-                  className="w-full"
-                  size="lg"
-                >
-                  {isLoading ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Analyzing Data...
-                    </>
-                  ) : (
-                    <>
-                      <BarChart3 className="mr-2 h-4 w-4" />
-                      Generate Prediction
-                    </>
-                  )}
-                </Button>
-              </CardContent>
-            </Card>
-          </motion.div>
-
           {/* Results */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
