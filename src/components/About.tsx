@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Globe, Users, Target, Award, MapPin, Leaf, TrendingUp, Shield, TreePine, Heart, Sprout } from "lucide-react";
+import { Globe, Users, Target, Award, MapPin, Leaf, TrendingUp, Shield, Briefcase, Coins, GraduationCap } from "lucide-react";
 
 const stats = [
   { icon: Users, value: "50,000+", label: "Active Farmers" },
@@ -28,19 +28,19 @@ const values = [
 
 const sdgGoals = [
   {
-    icon: TreePine,
-    title: "Protect Terrestrial Ecosystems",
-    description: "Our AI-powered pest detection reduces harmful pesticide use by up to 40%, protecting beneficial insects and soil health.",
+    icon: Briefcase,
+    title: "Create Employment Opportunities",
+    description: "Our platform empowers smallholder farmers to increase productivity by 35%, creating sustainable livelihoods and reducing rural poverty.",
   },
   {
-    icon: Sprout,
-    title: "Combat Land Degradation",
-    description: "Smart crop rotation and soil health monitoring help reverse land degradation and restore fertility.",
+    icon: Coins,
+    title: "Boost Economic Growth",
+    description: "AI-driven market insights help farmers get 25% better prices, contributing to local and national economic development.",
   },
   {
-    icon: Heart,
-    title: "Preserve Biodiversity",
-    description: "We promote integrated pest management and diverse cropping systems that support local ecosystems.",
+    icon: GraduationCap,
+    title: "Promote Skills & Innovation",
+    description: "We provide training in modern agricultural techniques, bridging the digital divide and fostering entrepreneurship in rural communities.",
   },
 ];
 
@@ -159,12 +159,12 @@ const About = () => {
               Our Global Commitment
             </span>
             <h3 className="font-display text-3xl font-bold text-foreground mb-4">
-              Dedicated to <span className="text-primary">SDG 15:</span> Life on Land
+              Dedicated to <span className="text-primary">SDG 8:</span> Decent Work & Economic Growth
             </h3>
             <p className="max-w-2xl mx-auto text-muted-foreground">
-              AgriNova is deeply committed to the United Nations Sustainable Development Goal 15, 
-              which aims to protect, restore, and promote sustainable use of terrestrial ecosystems. 
-              Our technology actively contributes to preserving biodiversity and combating land degradation.
+              AgriNova is deeply committed to the United Nations Sustainable Development Goal 8, 
+              which promotes sustained, inclusive economic growth, full employment, and decent work for all. 
+              Our technology directly empowers farmers to increase their income and build sustainable livelihoods.
             </p>
           </div>
 
@@ -195,20 +195,20 @@ const About = () => {
               <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
                 <Globe className="h-5 w-5 text-accent" />
               </div>
-              <span className="font-semibold text-foreground">SDG 15 Impact Metrics</span>
+              <span className="font-semibold text-foreground">SDG 8 Impact Metrics</span>
             </div>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <div className="text-2xl font-bold text-primary">40%</div>
-                <div className="text-xs text-muted-foreground">Less Pesticide Use</div>
+                <div className="text-2xl font-bold text-primary">35%</div>
+                <div className="text-xs text-muted-foreground">Income Increase</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-accent">25,000+</div>
-                <div className="text-xs text-muted-foreground">Hectares Protected</div>
+                <div className="text-2xl font-bold text-accent">50,000+</div>
+                <div className="text-xs text-muted-foreground">Jobs Supported</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-[hsl(var(--olive))]">30%</div>
-                <div className="text-xs text-muted-foreground">Soil Health Improved</div>
+                <div className="text-2xl font-bold text-[hsl(var(--olive))]">₹2.5B</div>
+                <div className="text-xs text-muted-foreground">Economic Value Created</div>
               </div>
             </div>
           </div>
