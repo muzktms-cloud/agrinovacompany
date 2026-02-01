@@ -13,6 +13,7 @@ import CropChatbot from "./pages/CropChatbot";
 import CropAdvisor from "./pages/CropAdvisor";
 import CropSimulator from "./pages/CropSimulator";
 import HarvestPredictor from "./pages/HarvestPredictor";
+import MarketAdvisor from "./pages/MarketAdvisor";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/advisor" element={<CropAdvisor />} />
           <Route path="/simulator" element={<CropSimulator />} />
           <Route path="/predictor" element={<HarvestPredictor />} />
+          <Route path="/market" element={<MarketAdvisor />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.harvest-predictor]
 verify_jwt = false
+
+[functions.market-advisor]
+verify_jwt = false
