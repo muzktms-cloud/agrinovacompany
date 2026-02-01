@@ -2,15 +2,14 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Check, Sparkles } from "lucide-react";
 import { Button } from "./ui/button";
+import { useTranslation } from "react-i18next";
 
 const languages = [
-  // Primary languages
   { code: "en", name: "English", native: "English", flag: "🇬🇧" },
   { code: "hi", name: "Hindi", native: "हिन्दी", flag: "🇮🇳" },
   { code: "es", name: "Spanish", native: "Español", flag: "🇪🇸" },
   { code: "ar", name: "Arabic", native: "العربية", flag: "🇸🇦" },
   { code: "fr", name: "French", native: "Français", flag: "🇫🇷" },
-  // South Asian languages
   { code: "bn", name: "Bengali", native: "বাংলা", flag: "🇧🇩" },
   { code: "ta", name: "Tamil", native: "தமிழ்", flag: "🇮🇳" },
   { code: "te", name: "Telugu", native: "తెలుగు", flag: "🇮🇳" },
@@ -20,13 +19,13 @@ const languages = [
   { code: "ml", name: "Malayalam", native: "മലയാളം", flag: "🇮🇳" },
   { code: "pa", name: "Punjabi", native: "ਪੰਜਾਬੀ", flag: "🇮🇳" },
   { code: "or", name: "Odia", native: "ଓଡ଼ିଆ", flag: "🇮🇳" },
+  { code: "as", name: "Assamese", native: "অসমীয়া", flag: "🇮🇳" },
   { code: "ur", name: "Urdu", native: "اردو", flag: "🇵🇰" },
   { code: "ne", name: "Nepali", native: "नेपाली", flag: "🇳🇵" },
   { code: "si", name: "Sinhala", native: "සිංහල", flag: "🇱🇰" },
-  { code: "my", name: "Burmese", native: "မြန်မာ", flag: "🇲🇲" },
-  { code: "th", name: "Thai", native: "ไทย", flag: "🇹🇭" },
-  { code: "vi", name: "Vietnamese", native: "Tiếng Việt", flag: "🇻🇳" },
-  { code: "id", name: "Indonesian", native: "Bahasa Indonesia", flag: "🇮🇩" },
+  { code: "sd", name: "Sindhi", native: "سنڌي", flag: "🇵🇰" },
+  { code: "dv", name: "Dhivehi", native: "ދިވެހި", flag: "🇲🇻" },
+  { code: "bho", name: "Bhojpuri", native: "भोजपुरी", flag: "🇮🇳" },
 ];
 
 interface LanguageChooserProps {
@@ -36,9 +35,10 @@ interface LanguageChooserProps {
 const LanguageChooser = ({ onLanguageSelect }: LanguageChooserProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedLang, setSelectedLang] = useState<string | null>(null);
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    const savedLang = localStorage.getItem("agrinova-language");
+    const savedLang = localStorage.getItem("agriNova-language");
     if (!savedLang) {
       setIsOpen(true);
     }
@@ -47,7 +47,8 @@ const LanguageChooser = ({ onLanguageSelect }: LanguageChooserProps) => {
   const handleSelect = (code: string) => {
     setSelectedLang(code);
     setTimeout(() => {
-      localStorage.setItem("agrinova-language", code);
+      localStorage.setItem("agriNova-language", code);
+      i18n.changeLanguage(code);
       setIsOpen(false);
       onLanguageSelect(code);
     }, 300);
@@ -70,7 +71,6 @@ const LanguageChooser = ({ onLanguageSelect }: LanguageChooserProps) => {
           transition={{ duration: 0.5, type: "spring" }}
           className="w-full max-w-4xl"
         >
-          {/* Header */}
           <div className="text-center mb-8">
             <motion.div
               initial={{ scale: 0 }}
@@ -97,12 +97,11 @@ const LanguageChooser = ({ onLanguageSelect }: LanguageChooserProps) => {
               className="text-muted-foreground text-lg flex items-center justify-center gap-2"
             >
               <Sparkles className="h-5 w-5 text-accent" />
-              Choose your preferred language
+              {t('language.chooseLanguage', 'Choose your preferred language')}
               <Sparkles className="h-5 w-5 text-accent" />
             </motion.p>
           </div>
 
-          {/* Language Grid */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -142,14 +141,13 @@ const LanguageChooser = ({ onLanguageSelect }: LanguageChooserProps) => {
                 <span className="text-xs text-muted-foreground">{lang.name}</span>
                 {index < 5 && (
                   <span className="absolute top-1 right-1 text-[8px] bg-accent/20 text-accent px-1.5 py-0.5 rounded-full">
-                    Featured
+                    {t('language.featured', 'Featured')}
                   </span>
                 )}
               </motion.button>
             ))}
           </motion.div>
 
-          {/* Skip button */}
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -161,7 +159,7 @@ const LanguageChooser = ({ onLanguageSelect }: LanguageChooserProps) => {
               onClick={() => handleSelect("en")}
               className="text-muted-foreground hover:text-foreground"
             >
-              Continue with English →
+              {t('language.continueWith', 'Continue with English')} →
             </Button>
           </motion.div>
         </motion.div>

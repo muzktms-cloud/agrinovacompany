@@ -146,7 +146,7 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* SDG 15 Section */}
+        {/* SDG 8 Section - Reddish Theme */}
         <motion.div
           className="mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -155,11 +155,11 @@ const About = () => {
           transition={{ duration: 0.6, delay: 0.35 }}
         >
           <div className="text-center mb-10">
-            <span className="inline-block text-sm font-semibold text-[hsl(var(--olive))] uppercase tracking-wider mb-3">
+            <span className="inline-block text-sm font-semibold text-[hsl(var(--terracotta))] uppercase tracking-wider mb-3">
               Our Global Commitment
             </span>
             <h3 className="font-display text-3xl font-bold text-foreground mb-4">
-              Dedicated to <span className="text-primary">SDG 8:</span> Decent Work & Economic Growth
+              Dedicated to <span className="text-[hsl(var(--coral))]">SDG 8:</span> Decent Work & Economic Growth
             </h3>
             <p className="max-w-2xl mx-auto text-muted-foreground">
               AgriNova is deeply committed to the United Nations Sustainable Development Goal 8, 
@@ -172,12 +172,12 @@ const About = () => {
             {sdgGoals.map((goal, index) => (
               <motion.div
                 key={goal.title}
-                className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-[hsl(var(--olive))]/10 to-primary/10 border border-primary/20"
+                className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-[hsl(var(--terracotta))]/10 to-[hsl(var(--coral))]/10 border border-[hsl(var(--coral))]/30"
                 whileHover={{ y: -5 }}
                 transition={{ duration: 0.2 }}
               >
-                <div className="w-14 h-14 rounded-full bg-primary/20 flex items-center justify-center mb-4">
-                  <goal.icon className="h-7 w-7 text-primary" />
+                <div className="w-14 h-14 rounded-full bg-[hsl(var(--coral))]/20 flex items-center justify-center mb-4">
+                  <goal.icon className="h-7 w-7 text-[hsl(var(--coral))]" />
                 </div>
                 <h4 className="font-display text-lg font-bold text-foreground mb-2">
                   {goal.title}
@@ -185,29 +185,29 @@ const About = () => {
                 <p className="text-sm text-muted-foreground">
                   {goal.description}
                 </p>
-                <div className="absolute top-0 right-0 w-20 h-20 bg-primary/5 rounded-full -translate-y-10 translate-x-10" />
+                <div className="absolute top-0 right-0 w-20 h-20 bg-[hsl(var(--coral))]/5 rounded-full -translate-y-10 translate-x-10" />
               </motion.div>
             ))}
           </div>
 
-          <div className="mt-8 p-6 rounded-2xl bg-accent/10 border border-accent/20">
+          <div className="mt-8 p-6 rounded-2xl bg-[hsl(var(--terracotta))]/10 border border-[hsl(var(--terracotta))]/30">
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                <Globe className="h-5 w-5 text-accent" />
+              <div className="w-10 h-10 rounded-full bg-[hsl(var(--coral))]/20 flex items-center justify-center">
+                <Globe className="h-5 w-5 text-[hsl(var(--coral))]" />
               </div>
               <span className="font-semibold text-foreground">SDG 8 Impact Metrics</span>
             </div>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <div className="text-2xl font-bold text-primary">35%</div>
+                <div className="text-2xl font-bold text-[hsl(var(--coral))]">35%</div>
                 <div className="text-xs text-muted-foreground">Income Increase</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-accent">50,000+</div>
+                <div className="text-2xl font-bold text-[hsl(var(--terracotta))]">50,000+</div>
                 <div className="text-xs text-muted-foreground">Jobs Supported</div>
               </div>
               <div>
-                <div className="text-2xl font-bold text-[hsl(var(--olive))]">₹2.5B</div>
+                <div className="text-2xl font-bold text-[hsl(var(--coral))]">₹2.5B</div>
                 <div className="text-xs text-muted-foreground">Economic Value Created</div>
               </div>
             </div>
