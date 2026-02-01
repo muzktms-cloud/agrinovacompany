@@ -15,8 +15,8 @@ import gu from './locales/gu.json';
 import kn from './locales/kn.json';
 import ml from './locales/ml.json';
 import pa from './locales/pa.json';
-import or from './locales/or.json';
-import as from './locales/as.json';
+import or_ from './locales/or.json';
+import as_ from './locales/as.json';
 import ne from './locales/ne.json';
 import si from './locales/si.json';
 import ur from './locales/ur.json';
@@ -24,7 +24,7 @@ import sd from './locales/sd.json';
 import dv from './locales/dv.json';
 import bho from './locales/bho.json';
 
-const resources = {
+const resources: any = {
   en: { translation: en },
   hi: { translation: hi },
   es: { translation: es },
@@ -38,8 +38,8 @@ const resources = {
   kn: { translation: kn },
   ml: { translation: ml },
   pa: { translation: pa },
-  or: { translation: or },
-  as: { translation: as },
+  or: { translation: or_ },
+  as: { translation: as_ },
   ne: { translation: ne },
   si: { translation: si },
   ur: { translation: ur },
@@ -48,18 +48,18 @@ const resources = {
   bho: { translation: bho },
 };
 
-// Get saved language or default to English
-const savedLanguage = localStorage.getItem('agriNova-language') || 'en';
+// Use the stored language if available (guard for SSR)
+const savedLang = typeof window !== 'undefined' ? localStorage.getItem('agrinova-language') : null;
+const defaultLang = savedLang || 'en';
 
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: savedLanguage,
+    lng: defaultLang,
     fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
+    interpolation: { escapeValue: false },
+    react: { useSuspense: false },
   });
 
 export default i18n;
