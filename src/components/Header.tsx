@@ -3,18 +3,20 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { t } = useTranslation();
 
   const navLinks = [
-    { href: "/#features", label: "Features", isHash: true },
-    { href: "/chatbot", label: "AI Chat" },
-    { href: "/advisor", label: "Advisor" },
-    { href: "/planner", label: "Planner" },
-    { href: "/weather", label: "Weather" },
-    { href: "/store", label: "Store" },
+    { href: "/#features", label: t('nav.planner', 'Features'), isHash: true },
+    { href: "/chatbot", label: t('nav.chatbot', 'AI Chat') },
+    { href: "/advisor", label: t('nav.advisor', 'Advisor') },
+    { href: "/planner", label: t('nav.planner', 'Planner') },
+    { href: "/weather", label: t('nav.weather', 'Weather') },
+    { href: "/store", label: t('nav.store', 'Store') },
   ];
 
   const handleNavClick = (href: string, isHash?: boolean) => {
@@ -52,7 +54,7 @@ const Header = () => {
 
         <div className="flex items-center gap-4">
           <Button variant="default" size="sm" className="hidden md:flex" asChild>
-            <Link to="/planner">Get Started</Link>
+            <Link to="/planner">{t('hero.getStarted', 'Get Started')}</Link>
           </Button>
           
           <Button
@@ -66,7 +68,6 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Mobile menu */}
       {mobileMenuOpen && (
         <div className="md:hidden bg-background border-b border-border">
           <nav className="container mx-auto px-6 py-4 flex flex-col gap-4">
@@ -82,7 +83,7 @@ const Header = () => {
             ))}
             <Button variant="default" asChild className="mt-2">
               <Link to="/planner" onClick={() => setMobileMenuOpen(false)}>
-                Get Started
+                {t('hero.getStarted', 'Get Started')}
               </Link>
             </Button>
           </nav>
