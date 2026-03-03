@@ -11,8 +11,8 @@ serve(async (req) => {
   }
 
   try {
-    const { crop, region, landSize, budget, irrigationType } = await req.json();
-    console.log("Simulation request:", { crop, region, landSize, budget, irrigationType });
+    const { crop, region, landSize, budget, irrigationType, language } = await req.json();
+    console.log("Simulation request:", { crop, region, landSize, budget, irrigationType, language });
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -44,12 +44,16 @@ Always respond in JSON format with these exact fields:
   ]
 }`;
 
+    const langInstruction = language && language !== 'en'
+      ? `\n\nIMPORTANT: Write all text values (recommendations, activity descriptions) in the language with code "${language}". Keep JSON keys in English. Numbers and currency stay as-is.`
+      : '';
+
     const userPrompt = `Simulate growing ${crop} in ${region} with the following parameters:
 - Land Size: ${landSize} acres
 - Budget: ₹${budget.toLocaleString()}
 - Irrigation Type: ${irrigationType}
 
-Provide a realistic simulation of what to expect for the next growing season. Consider local conditions, typical yields, market prices, and common challenges.`;
+Provide a realistic simulation of what to expect for the next growing season. Consider local conditions, typical yields, market prices, and common challenges.${langInstruction}`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",

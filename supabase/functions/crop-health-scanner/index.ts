@@ -12,7 +12,7 @@ serve(async (req) => {
   }
 
   try {
-    const { imageBase64, cropType } = await req.json();
+    const { imageBase64, cropType, language } = await req.json();
 
     if (!imageBase64) {
       throw new Error('No image provided');
@@ -58,7 +58,7 @@ Respond in JSON format:
   "immediateActions": ["..."],
   "longTermRecommendations": ["..."],
   "summary": "Brief overall assessment"
-}`;
+}${language && language !== 'en' ? `\n\nIMPORTANT: Write all text values (indicators, actions, concerns, recommendations, summary) in the language with code "${language}". Keep JSON keys in English.` : ''}`;
 
     const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
       method: 'POST',

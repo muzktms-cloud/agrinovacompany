@@ -11,12 +11,16 @@ serve(async (req) => {
   }
 
   try {
-    const { messages } = await req.json();
+    const { messages, language } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
+
+    const langInstruction = language && language !== 'en'
+      ? `\n\nIMPORTANT: Always respond in the language with code "${language}". The user prefers this language.`
+      : '';
 
     const systemPrompt = `You are AgriNova's expert agricultural advisor chatbot. You help farmers with:
 - Crop health and disease identification
@@ -32,7 +36,7 @@ You operate primarily in Southern Asia (India, Bangladesh, Pakistan, Sri Lanka, 
 
 Be friendly, practical, and provide actionable advice. Use simple language that farmers can easily understand. When relevant, mention local crop varieties and traditional farming wisdom alongside modern techniques.
 
-Always prioritize sustainable and environmentally friendly solutions.`;
+Always prioritize sustainable and environmentally friendly solutions.${langInstruction}`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",

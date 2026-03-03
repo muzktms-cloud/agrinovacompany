@@ -11,14 +11,18 @@ serve(async (req) => {
   }
 
   try {
-    const { crop, region, season, farmSize } = await req.json();
+    const { crop, region, season, farmSize, language } = await req.json();
     
-    console.log("Market Advisor request:", { crop, region, season, farmSize });
+    console.log("Market Advisor request:", { crop, region, season, farmSize, language });
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
+
+    const langInstruction = language && language !== 'en' 
+      ? `\n\nIMPORTANT: Respond with all text values (recommendations, riskFactors, bestSellingTime, seasonalInsight) in the language with code "${language}". Keep JSON keys in English. Numbers stay as numbers.`
+      : '';
 
     const systemPrompt = `You are an expert agricultural market analyst for South Asia. 
     
@@ -31,7 +35,7 @@ Your task is to provide realistic market analysis for crops based on:
 - Export/import trends
 
 Always provide prices in Indian Rupees (INR) per quintal (100 kg).
-Base your estimates on realistic market data for the region.`;
+Base your estimates on realistic market data for the region.${langInstruction}`;
 
     const userPrompt = `Analyze the market for ${crop} in ${region}${season ? ` during ${season} season` : ""}${farmSize ? ` for a ${farmSize} hectare farm` : ""}.
 

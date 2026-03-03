@@ -11,8 +11,8 @@ serve(async (req) => {
   }
 
   try {
-    const { crop, region, plantingDate, fieldConditions } = await req.json();
-    console.log("Prediction request:", { crop, region, plantingDate, fieldConditions });
+    const { crop, region, plantingDate, fieldConditions, language } = await req.json();
+    console.log("Prediction request:", { crop, region, plantingDate, fieldConditions, language });
 
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) {
@@ -56,7 +56,7 @@ Based on global agricultural data and regional patterns, provide predictions for
 2. Market price trends and best selling window
 3. Potential problems and their likelihood
 4. Weather outlook until expected harvest
-5. Actionable recommendations`;
+5. Actionable recommendations${language && language !== 'en' ? `\n\nIMPORTANT: Write all text values in the language with code "${language}". Keep JSON keys in English.` : ''}`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",

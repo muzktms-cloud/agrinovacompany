@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -53,7 +54,8 @@ const Header = () => {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <LanguageSwitcher />
           <Button variant="default" size="sm" className="hidden md:flex" asChild>
             <Link to="/planner">{t('hero.getStarted', 'Get Started')}</Link>
           </Button>
