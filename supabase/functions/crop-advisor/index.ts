@@ -11,7 +11,7 @@ serve(async (req) => {
   }
 
   try {
-    const { cropType, location, growthStage, soilType } = await req.json();
+    const { cropType, location, growthStage, soilType, language } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
@@ -24,6 +24,10 @@ serve(async (req) => {
       month: 'long', 
       day: 'numeric' 
     });
+
+    const langInstruction = language && language !== 'en'
+      ? `\n\nIMPORTANT: Write all text values in the language with code "${language}". Keep JSON keys in English.`
+      : '';
 
     const prompt = `You are AgriNova's crop advisor for Southern Asian farmers. Today is ${today}.
 
@@ -44,7 +48,7 @@ Provide comprehensive, actionable advice in the following JSON format:
   "sustainabilityTip": "An eco-friendly farming tip"
 }
 
-Consider the monsoon patterns, local climate, and agricultural practices of the region. Be specific and practical.`;
+Consider the monsoon patterns, local climate, and agricultural practices of the region. Be specific and practical.${langInstruction}`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",

@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 
 interface PestResult {
   pestName: string;
@@ -30,6 +31,7 @@ const threatColors = {
 };
 
 const PestDetector = () => {
+  const { t, i18n } = useTranslation();
   const [image, setImage] = useState<string | null>(null);
   const [cropType, setCropType] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -64,7 +66,7 @@ const PestDetector = () => {
     setIsAnalyzing(true);
     try {
       const { data, error } = await supabase.functions.invoke("identify-pest", {
-        body: { imageBase64: image, cropType },
+        body: { imageBase64: image, cropType, language: i18n.language },
       });
 
       if (error) throw error;

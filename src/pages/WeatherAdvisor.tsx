@@ -10,6 +10,7 @@ import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 interface WeatherData {
   weather: {
@@ -48,6 +49,7 @@ const pestRiskColors = {
 };
 
 const WeatherAdvisor = () => {
+  const { t, i18n } = useTranslation();
   const [location, setLocation] = useState("");
   const [coordinates, setCoordinates] = useState<{ lat: number; lng: number } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -128,7 +130,7 @@ const WeatherAdvisor = () => {
   const fetchWeatherAdvice = async (lat: number, lng: number, locationName: string) => {
     try {
       const { data, error } = await supabase.functions.invoke("weather-advisor", {
-        body: { latitude: lat, longitude: lng, location: locationName },
+        body: { latitude: lat, longitude: lng, location: locationName, language: i18n.language },
       });
 
       if (error) throw error;

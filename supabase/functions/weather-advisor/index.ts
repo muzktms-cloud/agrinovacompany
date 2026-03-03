@@ -11,12 +11,16 @@ serve(async (req) => {
   }
 
   try {
-    const { latitude, longitude, location } = await req.json();
+    const { latitude, longitude, location, language } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 
     if (!LOVABLE_API_KEY) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
+
+    const langInstruction = language && language !== 'en'
+      ? `\n\nIMPORTANT: Respond with all text values in the language with code "${language}". Keep JSON keys in English.`
+      : '';
 
     console.log(`Fetching weather for: ${location || `${latitude}, ${longitude}`}`);
 
@@ -90,7 +94,7 @@ Be specific, practical, and encouraging. Format response as JSON:
   "pestRiskReason": "why this risk level",
   "bestActivities": ["ideal farming activities for this weather"],
   "workerSafety": "any safety tips for farm workers"
-}`
+}${langInstruction}`
           },
           {
             role: "user",

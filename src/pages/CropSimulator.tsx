@@ -13,6 +13,7 @@ import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
 import { crops, regions, irrigationTypes } from "@/constants/agriculture-data";
+import { useTranslation } from "react-i18next";
 
 interface SimulationResult {
   expectedYield: string;
@@ -32,6 +33,7 @@ const simulationSteps = [
 ];
 
 const CropSimulator = () => {
+  const { t, i18n } = useTranslation();
   const [crop, setCrop] = useState("");
   const [region, setRegion] = useState("");
   const [landSize, setLandSize] = useState("");
@@ -66,6 +68,7 @@ const CropSimulator = () => {
           landSize: parseFloat(landSize),
           budget: budget[0],
           irrigationType,
+          language: i18n.language,
         },
       });
 

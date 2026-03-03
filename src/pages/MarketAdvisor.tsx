@@ -32,7 +32,7 @@ interface MarketAnalysis {
 }
 
 const MarketAdvisor = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [selectedCrop, setSelectedCrop] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
   const [selectedSeason, setSelectedSeason] = useState("");
@@ -65,7 +65,8 @@ const MarketAdvisor = () => {
           crop: selectedCrop, 
           region: selectedRegion,
           season: selectedSeason,
-          farmSize: farmSize ? parseFloat(farmSize) : undefined
+          farmSize: farmSize ? parseFloat(farmSize) : undefined,
+          language: i18n.language
         }
       });
 

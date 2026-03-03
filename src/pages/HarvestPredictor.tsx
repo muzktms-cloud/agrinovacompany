@@ -12,6 +12,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { motion, AnimatePresence } from "framer-motion";
 import { crops, regions } from "@/constants/agriculture-data";
+import { useTranslation } from "react-i18next";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 
 interface PredictionResult {
@@ -27,6 +28,7 @@ interface PredictionResult {
 }
 
 const HarvestPredictor = () => {
+  const { t, i18n } = useTranslation();
   const [crop, setCrop] = useState("");
   const [region, setRegion] = useState("");
   const [plantingDate, setPlantingDate] = useState("");
@@ -58,6 +60,7 @@ const HarvestPredictor = () => {
           region,
           plantingDate,
           fieldConditions,
+          language: i18n.language,
         },
       });
 

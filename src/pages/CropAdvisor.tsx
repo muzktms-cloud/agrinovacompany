@@ -10,6 +10,7 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import { crops, regions, soilTypes as soilTypesList } from "@/constants/agriculture-data";
+import { useTranslation } from "react-i18next";
 
 type AdviceData = {
   dailyTip?: string;
@@ -28,6 +29,7 @@ const growthStages = [
 ];
 
 const CropAdvisor = () => {
+  const { t, i18n } = useTranslation();
   const [cropType, setCropType] = useState("");
   const [customCrop, setCustomCrop] = useState("");
   const [location, setLocation] = useState("");
@@ -61,7 +63,7 @@ const CropAdvisor = () => {
 
     try {
       const { data, error } = await supabase.functions.invoke("crop-advisor", {
-        body: { cropType: finalCrop, location: finalLocation, growthStage, soilType },
+        body: { cropType: finalCrop, location: finalLocation, growthStage, soilType, language: i18n.language },
       });
 
       if (error) throw error;

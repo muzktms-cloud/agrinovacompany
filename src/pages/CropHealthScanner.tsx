@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { useTranslation } from "react-i18next";
 
 interface HealthCategory {
   percentage: number;
@@ -33,6 +34,7 @@ interface HealthData {
 }
 
 const CropHealthScanner = () => {
+  const { t, i18n } = useTranslation();
   const [image, setImage] = useState<string | null>(null);
   const [cropType, setCropType] = useState("");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
@@ -65,7 +67,7 @@ const CropHealthScanner = () => {
     setIsAnalyzing(true);
     try {
       const { data, error } = await supabase.functions.invoke('crop-health-scanner', {
-        body: { imageBase64: image, cropType }
+        body: { imageBase64: image, cropType, language: i18n.language }
       });
 
       if (error) throw error;

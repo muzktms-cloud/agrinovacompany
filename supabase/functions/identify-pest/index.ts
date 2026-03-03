@@ -11,7 +11,7 @@ serve(async (req) => {
   }
 
   try {
-    const { imageBase64, cropType } = await req.json();
+    const { imageBase64, cropType, language } = await req.json();
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
 
     if (!LOVABLE_API_KEY) {
@@ -56,7 +56,7 @@ Format your response as JSON with these fields:
   "prevention": ["array of prevention tips"],
   "confidence": "High" | "Medium" | "Low",
   "additionalNotes": "string or null"
-}`
+}${language && language !== 'en' ? `\n\nIMPORTANT: Write all text values in the language with code "${language}". Keep JSON keys in English.` : ''}`
           },
           {
             role: "user",
