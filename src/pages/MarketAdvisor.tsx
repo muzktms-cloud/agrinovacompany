@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { crops, regions, seasons } from "@/constants/agriculture-data";
+import { crops, regions, featuredRegions, seasons } from "@/constants/agriculture-data";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
@@ -46,9 +46,9 @@ const MarketAdvisor = () => {
     crop.toLowerCase().includes(cropFilter.toLowerCase())
   );
 
-  const filteredRegions = regions.filter(region => 
-    region.toLowerCase().includes(regionFilter.toLowerCase())
-  );
+  const filteredRegions = regionFilter.trim().length > 0
+    ? regions.filter(region => region.toLowerCase().includes(regionFilter.toLowerCase())).slice(0, 20)
+    : featuredRegions;
 
   const handleAnalyze = async () => {
     if (!selectedCrop || !selectedRegion) {
@@ -196,16 +196,22 @@ const MarketAdvisor = () => {
                     Select Region *
                   </Label>
                   <Input
-                    placeholder="Type to search regions..."
+                    placeholder="Type any region, city, or district..."
                     value={regionFilter}
-                    onChange={(e) => setRegionFilter(e.target.value)}
+                    onChange={(e) => {
+                      setRegionFilter(e.target.value);
+                      setSelectedRegion(e.target.value);
+                    }}
                     className="mb-2"
                   />
-                  <div className="max-h-32 overflow-y-auto border rounded-lg p-2 space-y-1 bg-background">
-                    {filteredRegions.slice(0, 20).map((region) => (
+                  <div className="max-h-36 overflow-y-auto border rounded-lg p-2 space-y-1 bg-background">
+                    {regionFilter.trim().length === 0 && (
+                      <p className="text-xs text-muted-foreground px-2 py-1 font-medium">Popular Regions</p>
+                    )}
+                    {filteredRegions.map((region) => (
                       <button
                         key={region}
-                        onClick={() => { setSelectedRegion(region); setRegionFilter(""); }}
+                        onClick={() => { setSelectedRegion(region); setRegionFilter(region); }}
                         className={`w-full text-left px-3 py-1.5 rounded-md text-sm transition-colors ${
                           selectedRegion === region 
                             ? "bg-accent text-accent-foreground" 
@@ -215,6 +221,11 @@ const MarketAdvisor = () => {
                         {region}
                       </button>
                     ))}
+                    {regionFilter.trim().length > 0 && filteredRegions.length === 0 && (
+                      <p className="text-xs text-muted-foreground px-2 py-2">
+                        No exact match — your typed region "<span className="font-medium text-foreground">{regionFilter}</span>" will be used
+                      </p>
+                    )}
                   </div>
                   {selectedRegion && (
                     <Badge variant="secondary" className="mt-2">
