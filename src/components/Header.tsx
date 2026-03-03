@@ -17,6 +17,7 @@ const Header = () => {
     { href: "/planner", label: t('nav.planner', 'Planner') },
     { href: "/weather", label: t('nav.weather', 'Weather') },
     { href: "/store", label: t('nav.store', 'Store') },
+    { href: "/market", label: t('nav.market', 'Market') },
   ];
 
   const handleNavClick = (href: string, isHash?: boolean) => {
