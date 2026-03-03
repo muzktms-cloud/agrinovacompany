@@ -1,4 +1,4 @@
-import { Cloud, Droplets, Sprout, Bug, MessageCircle, Leaf, ShoppingBag, FlaskConical, BarChart3 } from "lucide-react";
+import { Cloud, Droplets, Sprout, Bug, MessageCircle, Leaf, ShoppingBag, FlaskConical, BarChart3, TrendingUp } from "lucide-react";
 import { Link } from "react-router-dom";
 import FeatureCard from "./FeatureCard";
 import { motion } from "framer-motion";
@@ -66,6 +66,13 @@ const features = [
     description: "Get predictions on harvest yields, potential problems, and market trends based on global data.",
     link: "/predictor",
     color: "primary",
+  },
+  {
+    icon: TrendingUp,
+    title: "Market Advisor",
+    description: "Get AI-powered market price estimates, demand forecasts, and profitability analysis for your crops.",
+    link: "/market",
+    color: "terracotta",
   },
 ];
 
