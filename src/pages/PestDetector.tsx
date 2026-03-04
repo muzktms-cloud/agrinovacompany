@@ -43,83 +43,42 @@ const PestDetector = () => {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 10 * 1024 * 1024) {
-        toast({
-          title: "File too large",
-          description: "Please upload an image smaller than 10MB.",
-          variant: "destructive",
-        });
+        toast({ title: t('pestDetector.fileTooLarge'), description: t('pestDetector.fileTooLargeDesc'), variant: "destructive" });
         return;
       }
-
       const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-        setResult(null);
-      };
+      reader.onloadend = () => { setImage(reader.result as string); setResult(null); };
       reader.readAsDataURL(file);
     }
   };
 
   const analyzePest = async () => {
     if (!image) return;
-
     setIsAnalyzing(true);
     try {
       const { data, error } = await supabase.functions.invoke("identify-pest", {
         body: { imageBase64: image, cropType, language: i18n.language },
       });
-
       if (error) throw error;
-
-      if (data.error) {
-        toast({
-          title: "Analysis failed",
-          description: data.error,
-          variant: "destructive",
-        });
-        return;
-      }
-
+      if (data.error) { toast({ title: t('pestDetector.analysisFailed'), description: data.error, variant: "destructive" }); return; }
       setResult(data);
-      
-      // Save to pest history
       await supabase.from('pest_detections').insert({
-        crop_type: cropType || 'Unknown',
-        pest_name: data.pestName || 'Unknown',
-        threat_level: data.threatLevel || 'Unknown',
-        description: data.description || '',
-        damage: data.damageDescription || '',
-        treatment: data.treatment?.join('; ') || '',
+        crop_type: cropType || 'Unknown', pest_name: data.pestName || 'Unknown',
+        threat_level: data.threatLevel || 'Unknown', description: data.description || '',
+        damage: data.damageDescription || '', treatment: data.treatment?.join('; ') || '',
         prevention: data.prevention?.join('; ') || '',
       });
-
-      toast({
-        title: "Analysis complete",
-        description: `Identified: ${data.pestName || "See results below"}. Saved to history.`,
-      });
+      toast({ title: t('pestDetector.analysisComplete'), description: `${data.pestName || ""}` });
     } catch (error) {
       console.error("Error analyzing pest:", error);
-      toast({
-        title: "Analysis failed",
-        description: "Failed to analyze the image. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsAnalyzing(false);
-    }
+      toast({ title: t('pestDetector.analysisFailed'), description: t('common.error'), variant: "destructive" });
+    } finally { setIsAnalyzing(false); }
   };
 
-  const clearImage = () => {
-    setImage(null);
-    setResult(null);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
+  const clearImage = () => { setImage(null); setResult(null); if (fileInputRef.current) fileInputRef.current.value = ""; };
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="bg-card border-b border-border sticky top-0 z-50">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <Link to="/" className="flex items-center gap-2">
@@ -127,106 +86,52 @@ const PestDetector = () => {
             <span className="font-display text-2xl font-bold text-foreground">AgriNova</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
-            <Link to="/planner" className="text-muted-foreground hover:text-foreground transition-colors">Planner</Link>
-            <Link to="/weather" className="text-muted-foreground hover:text-foreground transition-colors">Weather</Link>
+            <Link to="/planner" className="text-muted-foreground hover:text-foreground transition-colors">{t('nav.planner')}</Link>
+            <Link to="/weather" className="text-muted-foreground hover:text-foreground transition-colors">{t('nav.weather')}</Link>
           </nav>
         </div>
       </header>
 
       <main className="container mx-auto px-6 py-8">
         <div className="mb-8">
-          <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">
-            AI Pest Detector
-          </h1>
-          <p className="text-muted-foreground">
-            Upload a photo of a pest or plant damage and our AI will identify it and suggest treatments.
-          </p>
+          <h1 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-2">{t('pestDetector.title')}</h1>
+          <p className="text-muted-foreground">{t('pestDetector.subtitle')}</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Upload Section */}
           <div className="space-y-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Camera className="h-5 w-5 text-primary" />
-                  Upload Image
-                </CardTitle>
-                <CardDescription>
-                  Take a clear photo of the pest or affected plant area
-                </CardDescription>
+                <CardTitle className="flex items-center gap-2"><Camera className="h-5 w-5 text-primary" />{t('pestDetector.uploadTitle')}</CardTitle>
+                <CardDescription>{t('pestDetector.uploadDesc')}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="cropType">Crop Type (optional)</Label>
-                  <Input
-                    id="cropType"
-                    placeholder="e.g., Tomatoes, Corn, Wheat..."
-                    value={cropType}
-                    onChange={(e) => setCropType(e.target.value)}
-                  />
+                  <Label htmlFor="cropType">{t('pestDetector.cropType')} ({t('common.optional')})</Label>
+                  <Input id="cropType" placeholder={t('pestDetector.cropTypePlaceholder')} value={cropType} onChange={(e) => setCropType(e.target.value)} />
                 </div>
-
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleImageUpload}
-                />
-
+                <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
                 {!image ? (
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className="w-full h-64 border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center gap-4 hover:border-primary hover:bg-muted/50 transition-colors cursor-pointer"
-                  >
+                  <button onClick={() => fileInputRef.current?.click()} className="w-full h-64 border-2 border-dashed border-border rounded-xl flex flex-col items-center justify-center gap-4 hover:border-primary hover:bg-muted/50 transition-colors cursor-pointer">
                     <Upload className="h-12 w-12 text-muted-foreground" />
                     <div className="text-center">
-                      <p className="text-foreground font-medium">Click to upload</p>
-                      <p className="text-sm text-muted-foreground">or drag and drop</p>
+                      <p className="text-foreground font-medium">{t('pestDetector.clickToUpload')}</p>
+                      <p className="text-sm text-muted-foreground">{t('pestDetector.dragAndDrop')}</p>
                     </div>
                   </button>
                 ) : (
                   <div className="relative">
-                    <img
-                      src={image}
-                      alt="Uploaded pest"
-                      className="w-full h-64 object-cover rounded-xl"
-                    />
-                    <Button
-                      variant="destructive"
-                      size="icon"
-                      className="absolute top-2 right-2"
-                      onClick={clearImage}
-                    >
-                      <X className="h-4 w-4" />
-                    </Button>
+                    <img src={image} alt="Uploaded pest" className="w-full h-64 object-cover rounded-xl" />
+                    <Button variant="destructive" size="icon" className="absolute top-2 right-2" onClick={clearImage}><X className="h-4 w-4" /></Button>
                   </div>
                 )}
-
-                <Button
-                  onClick={analyzePest}
-                  disabled={!image || isAnalyzing}
-                  className="w-full"
-                  size="lg"
-                >
-                  {isAnalyzing ? (
-                    <>
-                      <Loader2 className="h-4 w-4 animate-spin" />
-                      Analyzing...
-                    </>
-                  ) : (
-                    <>
-                      <Bug className="h-4 w-4" />
-                      Identify Pest
-                    </>
-                  )}
+                <Button onClick={analyzePest} disabled={!image || isAnalyzing} className="w-full" size="lg">
+                  {isAnalyzing ? (<><Loader2 className="h-4 w-4 animate-spin" />{t('pestDetector.analyzing')}</>) : (<><Bug className="h-4 w-4" />{t('pestDetector.identifyPest')}</>)}
                 </Button>
               </CardContent>
             </Card>
           </div>
 
-          {/* Results Section */}
           <div className="space-y-6">
             {result && !result.rawResponse ? (
               <>
@@ -235,87 +140,37 @@ const PestDetector = () => {
                     <div className="flex items-start justify-between">
                       <div>
                         <CardTitle className="text-2xl">{result.pestName}</CardTitle>
-                        {result.scientificName && (
-                          <CardDescription className="italic">
-                            {result.scientificName}
-                          </CardDescription>
-                        )}
+                        {result.scientificName && <CardDescription className="italic">{result.scientificName}</CardDescription>}
                       </div>
-                      <Badge className={threatColors[result.threatLevel]}>
-                        {result.threatLevel} Threat
-                      </Badge>
+                      <Badge className={threatColors[result.threatLevel]}>{result.threatLevel} {t('pestDetector.threatLevel')}</Badge>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1">Description</h4>
-                      <p className="text-muted-foreground text-sm">{result.description}</p>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-1 flex items-center gap-2">
-                        <AlertTriangle className="h-4 w-4 text-destructive" />
-                        Damage
-                      </h4>
-                      <p className="text-muted-foreground text-sm">{result.damageDescription}</p>
-                    </div>
+                    <div><h4 className="font-semibold text-foreground mb-1">{t('pestDetector.description')}</h4><p className="text-muted-foreground text-sm">{result.description}</p></div>
+                    <div><h4 className="font-semibold text-foreground mb-1 flex items-center gap-2"><AlertTriangle className="h-4 w-4 text-destructive" />{t('pestDetector.damage')}</h4><p className="text-muted-foreground text-sm">{result.damageDescription}</p></div>
                   </CardContent>
                 </Card>
-
                 <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Shield className="h-5 w-5 text-primary" />
-                      Treatment & Prevention
-                    </CardTitle>
-                  </CardHeader>
+                  <CardHeader><CardTitle className="flex items-center gap-2"><Shield className="h-5 w-5 text-primary" />{t('pestDetector.treatment')}</CardTitle></CardHeader>
                   <CardContent className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2">Recommended Treatments</h4>
-                      <ul className="space-y-2">
-                        {result.treatment.map((t, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <span className="text-primary mt-1">•</span>
-                            {t}
-                          </li>
-                        ))}
-                      </ul>
+                    <div><h4 className="font-semibold text-foreground mb-2">{t('pestDetector.recommendedTreatments')}</h4>
+                      <ul className="space-y-2">{result.treatment.map((tr, i) => (<li key={i} className="flex items-start gap-2 text-sm text-muted-foreground"><span className="text-primary mt-1">•</span>{tr}</li>))}</ul>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground mb-2">Prevention Tips</h4>
-                      <ul className="space-y-2">
-                        {result.prevention.map((p, i) => (
-                          <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <span className="text-accent mt-1">•</span>
-                            {p}
-                          </li>
-                        ))}
-                      </ul>
+                    <div><h4 className="font-semibold text-foreground mb-2">{t('pestDetector.preventionTips')}</h4>
+                      <ul className="space-y-2">{result.prevention.map((p, i) => (<li key={i} className="flex items-start gap-2 text-sm text-muted-foreground"><span className="text-accent mt-1">•</span>{p}</li>))}</ul>
                     </div>
-                    {result.additionalNotes && (
-                      <div className="bg-muted/50 rounded-lg p-4">
-                        <p className="text-sm text-muted-foreground">{result.additionalNotes}</p>
-                      </div>
-                    )}
+                    {result.additionalNotes && <div className="bg-muted/50 rounded-lg p-4"><p className="text-sm text-muted-foreground">{result.additionalNotes}</p></div>}
                   </CardContent>
                 </Card>
               </>
             ) : result?.rawResponse ? (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Analysis Result</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground whitespace-pre-wrap">{result.rawResponse}</p>
-                </CardContent>
-              </Card>
+              <Card><CardHeader><CardTitle>{t('pestDetector.analysisResult')}</CardTitle></CardHeader><CardContent><p className="text-muted-foreground whitespace-pre-wrap">{result.rawResponse}</p></CardContent></Card>
             ) : (
               <Card className="h-full flex items-center justify-center">
                 <CardContent className="text-center py-16">
                   <Bug className="h-16 w-16 text-muted-foreground/30 mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-foreground mb-2">No Analysis Yet</h3>
-                  <p className="text-muted-foreground text-sm max-w-xs mx-auto">
-                    Upload an image of a pest or plant damage to get AI-powered identification and treatment recommendations.
-                  </p>
+                  <h3 className="text-lg font-medium text-foreground mb-2">{t('pestDetector.noAnalysisYet')}</h3>
+                  <p className="text-muted-foreground text-sm max-w-xs mx-auto">{t('pestDetector.noAnalysisDesc')}</p>
                 </CardContent>
               </Card>
             )}

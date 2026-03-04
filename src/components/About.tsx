@@ -1,50 +1,29 @@
 import { motion } from "framer-motion";
 import { Globe, Users, Target, Award, MapPin, Leaf, TrendingUp, Shield, Briefcase, Coins, GraduationCap } from "lucide-react";
-
-const stats = [
-  { icon: Users, value: "50,000+", label: "Active Farmers" },
-  { icon: Globe, value: "7", label: "Countries" },
-  { icon: Target, value: "95%", label: "Accuracy Rate" },
-  { icon: Award, value: "4.8★", label: "User Rating" },
-];
-
-const values = [
-  {
-    icon: Leaf,
-    title: "Sustainable Agriculture",
-    description: "We prioritize eco-friendly solutions that protect both crops and the environment for future generations.",
-  },
-  {
-    icon: TrendingUp,
-    title: "Data-Driven Decisions",
-    description: "Our AI analyzes real-time weather, soil, and crop data to provide actionable insights you can trust.",
-  },
-  {
-    icon: Shield,
-    title: "Farmer-First Approach",
-    description: "Built by agricultural experts, designed for real farmers, and constantly improved based on your feedback.",
-  },
-];
-
-const sdgGoals = [
-  {
-    icon: Briefcase,
-    title: "Create Employment Opportunities",
-    description: "Our platform empowers smallholder farmers to increase productivity by 35%, creating sustainable livelihoods and reducing rural poverty.",
-  },
-  {
-    icon: Coins,
-    title: "Boost Economic Growth",
-    description: "AI-driven market insights help farmers get 25% better prices, contributing to local and national economic development.",
-  },
-  {
-    icon: GraduationCap,
-    title: "Promote Skills & Innovation",
-    description: "We provide training in modern agricultural techniques, bridging the digital divide and fostering entrepreneurship in rural communities.",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const About = () => {
+  const { t } = useTranslation();
+
+  const stats = [
+    { icon: Users, value: "50,000+", label: t('about.stats.activeFarmers', 'Active Farmers') },
+    { icon: Globe, value: "7", label: t('about.stats.countries', 'Countries') },
+    { icon: Target, value: "95%", label: t('about.stats.accuracy', 'Accuracy Rate') },
+    { icon: Award, value: "4.8★", label: t('about.stats.rating', 'User Rating') },
+  ];
+
+  const values = [
+    { icon: Leaf, title: t('about.values.sustainable.title'), description: t('about.values.sustainable.description') },
+    { icon: TrendingUp, title: t('about.values.dataDriven.title'), description: t('about.values.dataDriven.description') },
+    { icon: Shield, title: t('about.values.farmerFirst.title'), description: t('about.values.farmerFirst.description') },
+  ];
+
+  const sdgGoals = [
+    { icon: Briefcase, title: t('about.sdg.employment.title'), description: t('about.sdg.employment.description') },
+    { icon: Coins, title: t('about.sdg.growth.title'), description: t('about.sdg.growth.description') },
+    { icon: GraduationCap, title: t('about.sdg.skills.title'), description: t('about.sdg.skills.description') },
+  ];
+
   return (
     <section id="about" className="py-24 bg-background scroll-mt-20">
       <div className="container mx-auto px-6">
@@ -56,19 +35,17 @@ const About = () => {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block text-sm font-semibold text-accent uppercase tracking-wider mb-4 bg-accent/20 px-4 py-2 rounded-full">
-            About AgriNova
+            {t('about.tagline', 'About AgriNova')}
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Empowering Farmers Across <span className="text-primary">Southern Asia</span>
+            {t('about.title', 'Empowering Farmers Across')} <span className="text-primary">{t('about.titleHighlight', 'Southern Asia')}</span>
           </h2>
           <p className="max-w-3xl mx-auto text-lg text-muted-foreground">
-            AgriNova was founded with a simple mission: to bring the power of artificial intelligence 
-            to smallholder farmers who feed the world. We believe every farmer deserves access to 
-            cutting-edge technology, regardless of farm size.
+            {t('about.description')}
           </p>
         </motion.div>
 
-        {/* Stats with colorful backgrounds */}
+        {/* Stats */}
         <motion.div
           className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -92,15 +69,13 @@ const About = () => {
                 index % 4 === 2 ? 'text-[hsl(var(--terracotta))]' :
                 'text-[hsl(var(--olive))]'
               }`} />
-              <div className="text-3xl md:text-4xl font-bold text-foreground mb-1">
-                {stat.value}
-              </div>
+              <div className="text-3xl md:text-4xl font-bold text-foreground mb-1">{stat.value}</div>
               <div className="text-sm text-muted-foreground">{stat.label}</div>
             </div>
           ))}
         </motion.div>
 
-        {/* Regions with vibrant styling */}
+        {/* Regions */}
         <motion.div
           className="bg-gradient-to-br from-primary/15 via-primary/10 to-accent/15 rounded-3xl p-8 md:p-12 mb-16 border border-primary/20"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -114,11 +89,10 @@ const About = () => {
             </div>
             <div>
               <h3 className="font-display text-2xl font-bold text-foreground mb-2">
-                Our Operating Regions
+                {t('about.regions.title')}
               </h3>
               <p className="text-muted-foreground mb-4">
-                AgriNova primarily serves farmers across Southern Asia, with specialized knowledge 
-                of local crops, climate patterns, and agricultural practices:
+                {t('about.regions.description')}
               </p>
             </div>
           </div>
@@ -146,7 +120,7 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* SDG 8 Section - Reddish Theme */}
+        {/* SDG 8 */}
         <motion.div
           className="mb-16"
           initial={{ opacity: 0, y: 20 }}
@@ -156,20 +130,18 @@ const About = () => {
         >
           <div className="text-center mb-10">
             <span className="inline-block text-sm font-semibold text-[hsl(var(--terracotta))] uppercase tracking-wider mb-3">
-              Our Global Commitment
+              {t('about.sdg.tagline')}
             </span>
             <h3 className="font-display text-3xl font-bold text-foreground mb-4">
-              Dedicated to <span className="text-[hsl(var(--coral))]">SDG 8:</span> Decent Work & Economic Growth
+              {t('about.sdg.title')}
             </h3>
             <p className="max-w-2xl mx-auto text-muted-foreground">
-              AgriNova is deeply committed to the United Nations Sustainable Development Goal 8, 
-              which promotes sustained, inclusive economic growth, full employment, and decent work for all. 
-              Our technology directly empowers farmers to increase their income and build sustainable livelihoods.
+              {t('about.sdg.description')}
             </p>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {sdgGoals.map((goal, index) => (
+            {sdgGoals.map((goal) => (
               <motion.div
                 key={goal.title}
                 className="relative overflow-hidden rounded-2xl p-6 bg-gradient-to-br from-[hsl(var(--terracotta))]/10 to-[hsl(var(--coral))]/10 border border-[hsl(var(--coral))]/30"
@@ -179,12 +151,8 @@ const About = () => {
                 <div className="w-14 h-14 rounded-full bg-[hsl(var(--coral))]/20 flex items-center justify-center mb-4">
                   <goal.icon className="h-7 w-7 text-[hsl(var(--coral))]" />
                 </div>
-                <h4 className="font-display text-lg font-bold text-foreground mb-2">
-                  {goal.title}
-                </h4>
-                <p className="text-sm text-muted-foreground">
-                  {goal.description}
-                </p>
+                <h4 className="font-display text-lg font-bold text-foreground mb-2">{goal.title}</h4>
+                <p className="text-sm text-muted-foreground">{goal.description}</p>
                 <div className="absolute top-0 right-0 w-20 h-20 bg-[hsl(var(--coral))]/5 rounded-full -translate-y-10 translate-x-10" />
               </motion.div>
             ))}
@@ -195,26 +163,26 @@ const About = () => {
               <div className="w-10 h-10 rounded-full bg-[hsl(var(--coral))]/20 flex items-center justify-center">
                 <Globe className="h-5 w-5 text-[hsl(var(--coral))]" />
               </div>
-              <span className="font-semibold text-foreground">SDG 8 Impact Metrics</span>
+              <span className="font-semibold text-foreground">{t('about.sdg.metrics')}</span>
             </div>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
                 <div className="text-2xl font-bold text-[hsl(var(--coral))]">35%</div>
-                <div className="text-xs text-muted-foreground">Income Increase</div>
+                <div className="text-xs text-muted-foreground">{t('about.sdg.incomeIncrease')}</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-[hsl(var(--terracotta))]">50,000+</div>
-                <div className="text-xs text-muted-foreground">Jobs Supported</div>
+                <div className="text-xs text-muted-foreground">{t('about.sdg.jobsSupported')}</div>
               </div>
               <div>
                 <div className="text-2xl font-bold text-[hsl(var(--coral))]">₹2.5B</div>
-                <div className="text-xs text-muted-foreground">Economic Value Created</div>
+                <div className="text-xs text-muted-foreground">{t('about.sdg.economicValue')}</div>
               </div>
             </div>
           </div>
         </motion.div>
 
-        {/* Values with colorful icons */}
+        {/* Values */}
         <motion.div
           className="grid md:grid-cols-3 gap-8"
           initial={{ opacity: 0, y: 20 }}
@@ -229,25 +197,19 @@ const About = () => {
               whileHover={{ y: -5 }}
             >
               <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6 ${
-                index === 0 ? 'bg-primary/20' :
-                index === 1 ? 'bg-accent/20' :
-                'bg-[hsl(var(--terracotta))]/20'
+                index === 0 ? 'bg-primary/20' : index === 1 ? 'bg-accent/20' : 'bg-[hsl(var(--terracotta))]/20'
               }`}>
                 <value.icon className={`h-8 w-8 ${
-                  index === 0 ? 'text-primary' :
-                  index === 1 ? 'text-accent' :
-                  'text-[hsl(var(--terracotta))]'
+                  index === 0 ? 'text-primary' : index === 1 ? 'text-accent' : 'text-[hsl(var(--terracotta))]'
                 }`} />
               </div>
-              <h3 className="font-display text-xl font-bold text-foreground mb-3">
-                {value.title}
-              </h3>
+              <h3 className="font-display text-xl font-bold text-foreground mb-3">{value.title}</h3>
               <p className="text-muted-foreground">{value.description}</p>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Story - Updated to 2025 */}
+        {/* Story */}
         <motion.div
           className="mt-16 max-w-4xl mx-auto text-center"
           initial={{ opacity: 0 }}
@@ -255,27 +217,10 @@ const About = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
         >
-          <h3 className="font-display text-2xl font-bold text-foreground mb-4">
-            Our Story
-          </h3>
-          <p className="text-muted-foreground mb-4">
-            Founded in <span className="font-semibold text-primary">2025</span>, AgriNova emerged from a collaboration between agricultural scientists, 
-            AI researchers, and farmers who understood the challenges of modern farming. We saw how 
-            unpredictable weather, new pest threats, and changing market conditions were affecting 
-            livelihoods across Southern Asia.
-          </p>
-          <p className="text-muted-foreground mb-4">
-            Our team combines decades of agricultural expertise with cutting-edge artificial intelligence 
-            to create tools that are both powerful and accessible. We've worked directly with farming 
-            communities in India, Bangladesh, Pakistan, Sri Lanka, Nepal, Bhutan, and the Maldives to 
-            ensure our solutions address real-world challenges.
-          </p>
-          <p className="text-muted-foreground">
-            Today, AgriNova helps over 50,000 farmers make smarter decisions about their crops—from 
-            predicting pest outbreaks before they happen, to optimizing irrigation during monsoon seasons, 
-            to timing harvests for maximum market value. Our mission continues: to ensure no farmer 
-            faces uncertainty alone.
-          </p>
+          <h3 className="font-display text-2xl font-bold text-foreground mb-4">{t('about.story.title')}</h3>
+          <p className="text-muted-foreground mb-4">{t('about.story.p1')}</p>
+          <p className="text-muted-foreground mb-4">{t('about.story.p2')}</p>
+          <p className="text-muted-foreground">{t('about.story.p3')}</p>
         </motion.div>
       </div>
     </section>

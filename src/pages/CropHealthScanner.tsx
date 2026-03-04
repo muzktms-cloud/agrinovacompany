@@ -12,25 +12,11 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useTranslation } from "react-i18next";
 
-interface HealthCategory {
-  percentage: number;
-  indicators: string[];
-  actions: string[];
-}
-
+interface HealthCategory { percentage: number; indicators: string[]; actions: string[]; }
 interface HealthData {
-  cropType: string;
-  overallHealthScore: number;
-  categories: {
-    healthy: HealthCategory;
-    needsAttention: HealthCategory;
-    atRisk: HealthCategory;
-    severelyDamaged: HealthCategory;
-  };
-  primaryConcerns: string[];
-  immediateActions: string[];
-  longTermRecommendations: string[];
-  summary: string;
+  cropType: string; overallHealthScore: number;
+  categories: { healthy: HealthCategory; needsAttention: HealthCategory; atRisk: HealthCategory; severelyDamaged: HealthCategory; };
+  primaryConcerns: string[]; immediateActions: string[]; longTermRecommendations: string[]; summary: string;
 }
 
 const CropHealthScanner = () => {
@@ -44,260 +30,104 @@ const CropHealthScanner = () => {
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result as string);
-        setHealthData(null);
-      };
-      reader.readAsDataURL(file);
-    }
+    if (file) { const reader = new FileReader(); reader.onloadend = () => { setImage(reader.result as string); setHealthData(null); }; reader.readAsDataURL(file); }
   };
 
   const analyzeHealth = async () => {
-    if (!image) {
-      toast({
-        title: "No image selected",
-        description: "Please upload an image of your crops first.",
-        variant: "destructive",
-      });
-      return;
-    }
-
+    if (!image) { toast({ title: t('cropHealth.noImage'), description: t('cropHealth.noImageDesc'), variant: "destructive" }); return; }
     setIsAnalyzing(true);
     try {
-      const { data, error } = await supabase.functions.invoke('crop-health-scanner', {
-        body: { imageBase64: image, cropType, language: i18n.language }
-      });
-
+      const { data, error } = await supabase.functions.invoke('crop-health-scanner', { body: { imageBase64: image, cropType, language: i18n.language } });
       if (error) throw error;
-
       setHealthData(data);
-      toast({
-        title: "Analysis complete!",
-        description: `Overall health score: ${data.overallHealthScore}/100`,
-      });
+      toast({ title: t('cropHealth.analysisComplete'), description: `${t('cropHealth.analysisScoreDesc')} ${data.overallHealthScore}/100` });
     } catch (error: any) {
       console.error('Error analyzing crop health:', error);
-      toast({
-        title: "Analysis failed",
-        description: error.message || "Could not analyze the image. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsAnalyzing(false);
-    }
+      toast({ title: t('pestDetector.analysisFailed'), description: error.message || t('common.error'), variant: "destructive" });
+    } finally { setIsAnalyzing(false); }
   };
 
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-green-600";
-    if (score >= 60) return "text-yellow-600";
-    if (score >= 40) return "text-orange-600";
-    return "text-red-600";
-  };
-
-  const getScoreBg = (score: number) => {
-    if (score >= 80) return "bg-green-500";
-    if (score >= 60) return "bg-yellow-500";
-    if (score >= 40) return "bg-orange-500";
-    return "bg-red-500";
-  };
+  const getScoreColor = (score: number) => { if (score >= 80) return "text-green-600"; if (score >= 60) return "text-yellow-600"; if (score >= 40) return "text-orange-600"; return "text-red-600"; };
 
   const categoryConfig = {
-    healthy: { icon: Leaf, color: "text-green-600", bg: "bg-green-100", label: "Healthy" },
-    needsAttention: { icon: AlertCircle, color: "text-yellow-600", bg: "bg-yellow-100", label: "Needs Attention" },
-    atRisk: { icon: AlertTriangle, color: "text-orange-600", bg: "bg-orange-100", label: "At Risk" },
-    severelyDamaged: { icon: XCircle, color: "text-red-600", bg: "bg-red-100", label: "Severely Damaged" },
+    healthy: { icon: Leaf, color: "text-green-600", bg: "bg-green-100", label: t('cropHealth.healthy') },
+    needsAttention: { icon: AlertCircle, color: "text-yellow-600", bg: "bg-yellow-100", label: t('cropHealth.needsAttention') },
+    atRisk: { icon: AlertTriangle, color: "text-orange-600", bg: "bg-orange-100", label: t('cropHealth.atRisk') },
+    severelyDamaged: { icon: XCircle, color: "text-red-600", bg: "bg-red-100", label: t('cropHealth.severelyDamaged') },
   };
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
       <main className="container mx-auto px-4 py-8 max-w-6xl">
         <div className="text-center mb-8">
-          <h1 className="font-display text-4xl font-bold text-foreground mb-4">
-            Crop Health Scanner
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Upload a photo of your crops to get an AI-powered health assessment with actionable recommendations.
-          </p>
+          <h1 className="font-display text-4xl font-bold text-foreground mb-4">{t('cropHealth.title')}</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('cropHealth.subtitle')}</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
-          {/* Upload Section */}
           <Card>
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Camera className="h-5 w-5" />
-                Upload Crop Image
-              </CardTitle>
-              <CardDescription>
-                Take a clear photo of your crops for accurate analysis
-              </CardDescription>
+              <CardTitle className="flex items-center gap-2"><Camera className="h-5 w-5" />{t('cropHealth.uploadTitle')}</CardTitle>
+              <CardDescription>{t('cropHealth.uploadDesc')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div
-                className="border-2 border-dashed border-border rounded-xl p-8 text-center cursor-pointer hover:border-primary/50 transition-colors"
-                onClick={() => fileInputRef.current?.click()}
-              >
-                {image ? (
-                  <img
-                    src={image}
-                    alt="Uploaded crop"
-                    className="max-h-64 mx-auto rounded-lg object-contain"
-                  />
-                ) : (
+              <div className="border-2 border-dashed border-border rounded-xl p-8 text-center cursor-pointer hover:border-primary/50 transition-colors" onClick={() => fileInputRef.current?.click()}>
+                {image ? (<img src={image} alt="Uploaded crop" className="max-h-64 mx-auto rounded-lg object-contain" />) : (
                   <div className="space-y-4">
                     <Upload className="h-12 w-12 mx-auto text-muted-foreground" />
-                    <p className="text-muted-foreground">
-                      Click to upload or drag and drop
-                    </p>
-                    <p className="text-sm text-muted-foreground">
-                      JPG, PNG or WebP (max 10MB)
-                    </p>
+                    <p className="text-muted-foreground">{t('cropHealth.uploadOrDrag')}</p>
+                    <p className="text-sm text-muted-foreground">{t('cropHealth.fileTypes')}</p>
                   </div>
                 )}
-                <input
-                  ref={fileInputRef}
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={handleImageUpload}
-                />
+                <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
               </div>
-
               <div className="space-y-2">
-                <Label htmlFor="cropType">Crop Type (optional)</Label>
-                <Input
-                  id="cropType"
-                  placeholder="e.g., Wheat, Rice, Tomatoes"
-                  value={cropType}
-                  onChange={(e) => setCropType(e.target.value)}
-                />
+                <Label htmlFor="cropType">{t('cropHealth.cropTypeOptional')}</Label>
+                <Input id="cropType" placeholder={t('cropHealth.cropTypePlaceholder')} value={cropType} onChange={(e) => setCropType(e.target.value)} />
               </div>
-
-              <Button
-                className="w-full"
-                onClick={analyzeHealth}
-                disabled={!image || isAnalyzing}
-              >
-                {isAnalyzing ? (
-                  <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Analyzing...
-                  </>
-                ) : (
-                  <>
-                    <Leaf className="h-4 w-4 mr-2" />
-                    Analyze Health
-                  </>
-                )}
+              <Button className="w-full" onClick={analyzeHealth} disabled={!image || isAnalyzing}>
+                {isAnalyzing ? (<><Loader2 className="h-4 w-4 mr-2 animate-spin" />{t('pestDetector.analyzing')}</>) : (<><Leaf className="h-4 w-4 mr-2" />{t('cropHealth.analyzeHealth')}</>)}
               </Button>
             </CardContent>
           </Card>
 
-          {/* Results Section */}
           <div className="space-y-6">
             {healthData ? (
               <>
-                {/* Overall Score */}
                 <Card>
-                  <CardHeader>
-                    <CardTitle>Overall Health Score</CardTitle>
-                    <CardDescription>
-                      {healthData.cropType} - {healthData.summary}
-                    </CardDescription>
-                  </CardHeader>
+                  <CardHeader><CardTitle>{t('cropHealth.overallScore')}</CardTitle><CardDescription>{healthData.cropType} - {healthData.summary}</CardDescription></CardHeader>
                   <CardContent>
                     <div className="flex items-center gap-4">
-                      <div className={`text-5xl font-bold ${getScoreColor(healthData.overallHealthScore)}`}>
-                        {healthData.overallHealthScore}
-                      </div>
-                      <div className="flex-1">
-                        <Progress 
-                          value={healthData.overallHealthScore} 
-                          className="h-4"
-                        />
-                      </div>
+                      <div className={`text-5xl font-bold ${getScoreColor(healthData.overallHealthScore)}`}>{healthData.overallHealthScore}</div>
+                      <div className="flex-1"><Progress value={healthData.overallHealthScore} className="h-4" /></div>
                     </div>
                   </CardContent>
                 </Card>
-
-                {/* Health Categories */}
                 <Card>
-                  <CardHeader>
-                    <CardTitle>Health Breakdown</CardTitle>
-                  </CardHeader>
+                  <CardHeader><CardTitle>{t('cropHealth.healthBreakdown')}</CardTitle></CardHeader>
                   <CardContent className="space-y-4">
-                    {(Object.entries(healthData.categories) as [keyof typeof categoryConfig, HealthCategory][]).map(
-                      ([key, category]) => {
-                        const config = categoryConfig[key];
-                        const Icon = config.icon;
-                        return (
-                          <div key={key} className={`p-4 rounded-lg ${config.bg}`}>
-                            <div className="flex items-center justify-between mb-2">
-                              <div className="flex items-center gap-2">
-                                <Icon className={`h-5 w-5 ${config.color}`} />
-                                <span className={`font-semibold ${config.color}`}>
-                                  {config.label}
-                                </span>
-                              </div>
-                              <Badge variant="secondary">{category.percentage}%</Badge>
-                            </div>
-                            {category.indicators.length > 0 && (
-                              <div className="text-sm text-muted-foreground mb-2">
-                                <strong>Signs:</strong> {category.indicators.join(", ")}
-                              </div>
-                            )}
-                            {category.actions.length > 0 && (
-                              <div className="text-sm">
-                                <strong>Actions:</strong> {category.actions.join(", ")}
-                              </div>
-                            )}
+                    {(Object.entries(healthData.categories) as [keyof typeof categoryConfig, HealthCategory][]).map(([key, category]) => {
+                      const config = categoryConfig[key]; const Icon = config.icon;
+                      return (
+                        <div key={key} className={`p-4 rounded-lg ${config.bg}`}>
+                          <div className="flex items-center justify-between mb-2">
+                            <div className="flex items-center gap-2"><Icon className={`h-5 w-5 ${config.color}`} /><span className={`font-semibold ${config.color}`}>{config.label}</span></div>
+                            <Badge variant="secondary">{category.percentage}%</Badge>
                           </div>
-                        );
-                      }
-                    )}
+                          {category.indicators.length > 0 && <div className="text-sm text-muted-foreground mb-2"><strong>{t('cropHealth.signs')}:</strong> {category.indicators.join(", ")}</div>}
+                          {category.actions.length > 0 && <div className="text-sm"><strong>{t('cropHealth.actions')}:</strong> {category.actions.join(", ")}</div>}
+                        </div>
+                      );
+                    })}
                   </CardContent>
                 </Card>
-
-                {/* Recommendations */}
                 <Card>
-                  <CardHeader>
-                    <CardTitle>Recommendations</CardTitle>
-                  </CardHeader>
+                  <CardHeader><CardTitle>{t('cropHealth.recommendations')}</CardTitle></CardHeader>
                   <CardContent className="space-y-4">
-                    {healthData.primaryConcerns.length > 0 && (
-                      <div>
-                        <h4 className="font-semibold text-red-600 mb-2">Primary Concerns</h4>
-                        <ul className="list-disc list-inside space-y-1 text-sm">
-                          {healthData.primaryConcerns.map((concern, i) => (
-                            <li key={i}>{concern}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {healthData.immediateActions.length > 0 && (
-                      <div>
-                        <h4 className="font-semibold text-orange-600 mb-2">Immediate Actions</h4>
-                        <ul className="list-disc list-inside space-y-1 text-sm">
-                          {healthData.immediateActions.map((action, i) => (
-                            <li key={i}>{action}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {healthData.longTermRecommendations.length > 0 && (
-                      <div>
-                        <h4 className="font-semibold text-green-600 mb-2">Long-term Recommendations</h4>
-                        <ul className="list-disc list-inside space-y-1 text-sm">
-                          {healthData.longTermRecommendations.map((rec, i) => (
-                            <li key={i}>{rec}</li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
+                    {healthData.primaryConcerns.length > 0 && (<div><h4 className="font-semibold text-red-600 mb-2">{t('cropHealth.primaryConcerns')}</h4><ul className="list-disc list-inside space-y-1 text-sm">{healthData.primaryConcerns.map((c, i) => <li key={i}>{c}</li>)}</ul></div>)}
+                    {healthData.immediateActions.length > 0 && (<div><h4 className="font-semibold text-orange-600 mb-2">{t('cropHealth.immediateActions')}</h4><ul className="list-disc list-inside space-y-1 text-sm">{healthData.immediateActions.map((a, i) => <li key={i}>{a}</li>)}</ul></div>)}
+                    {healthData.longTermRecommendations.length > 0 && (<div><h4 className="font-semibold text-green-600 mb-2">{t('cropHealth.longTermRecs')}</h4><ul className="list-disc list-inside space-y-1 text-sm">{healthData.longTermRecommendations.map((r, i) => <li key={i}>{r}</li>)}</ul></div>)}
                   </CardContent>
                 </Card>
               </>
@@ -305,16 +135,13 @@ const CropHealthScanner = () => {
               <Card className="h-full flex items-center justify-center min-h-[400px]">
                 <CardContent className="text-center">
                   <Leaf className="h-16 w-16 mx-auto text-muted-foreground/30 mb-4" />
-                  <p className="text-muted-foreground">
-                    Upload an image and click "Analyze Health" to see results
-                  </p>
+                  <p className="text-muted-foreground">{t('cropHealth.noResultsYet')}</p>
                 </CardContent>
               </Card>
             )}
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );
