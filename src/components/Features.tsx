@@ -2,79 +2,7 @@ import { Cloud, Droplets, Sprout, Bug, MessageCircle, Leaf, ShoppingBag, FlaskCo
 import { Link } from "react-router-dom";
 import FeatureCard from "./FeatureCard";
 import { motion } from "framer-motion";
-
-const features = [
-  {
-    icon: Bug,
-    title: "AI Pest Detection",
-    description: "Upload photos of pests or plant damage and get instant AI identification with treatment recommendations.",
-    link: "/pest-detector",
-    color: "primary",
-  },
-  {
-    icon: Cloud,
-    title: "Weather Advisor",
-    description: "Real-time weather data with AI-powered farming advice tailored to today's conditions.",
-    link: "/weather",
-    color: "accent",
-  },
-  {
-    icon: Sprout,
-    title: "Crop Planning",
-    description: "Schedule planting, watering, and harvest dates with smart reminders to stay on track.",
-    link: "/planner",
-    color: "olive",
-  },
-  {
-    icon: Droplets,
-    title: "Crop Health Scanner",
-    description: "Scan your crops to identify healthy, struggling, or failing sections with actionable insights.",
-    link: "/crop-health",
-    color: "terracotta",
-  },
-  {
-    icon: ShoppingBag,
-    title: "Hardware Store",
-    description: "Browse and purchase smart farming sensors, IoT devices, and agricultural technology.",
-    link: "/store",
-    color: "primary",
-  },
-  {
-    icon: MessageCircle,
-    title: "AI Crop Chatbot",
-    description: "Chat with our AI assistant anytime for instant advice on pests, diseases, irrigation, and more.",
-    link: "/chatbot",
-    color: "accent",
-  },
-  {
-    icon: Leaf,
-    title: "Personal Crop Advisor",
-    description: "Enter your crop and location to receive tailored daily guidance, from planting to harvest.",
-    link: "/advisor",
-    color: "olive",
-  },
-  {
-    icon: FlaskConical,
-    title: "What-If Simulator",
-    description: "Simulate different crop scenarios for next year and see projected outcomes before committing.",
-    link: "/simulator",
-    color: "terracotta",
-  },
-  {
-    icon: BarChart3,
-    title: "Harvest Predictor",
-    description: "Get predictions on harvest yields, potential problems, and market trends based on global data.",
-    link: "/predictor",
-    color: "primary",
-  },
-  {
-    icon: TrendingUp,
-    title: "Market Advisor",
-    description: "Get AI-powered market price estimates, demand forecasts, and profitability analysis for your crops.",
-    link: "/market",
-    color: "terracotta",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const container = {
   hidden: { opacity: 0 },
@@ -92,6 +20,21 @@ const item = {
 };
 
 const Features = () => {
+  const { t } = useTranslation();
+
+  const features = [
+    { icon: Bug, titleKey: "features.pestDetection.title", descKey: "features.pestDetection.description", link: "/pest-detector", color: "primary" },
+    { icon: Cloud, titleKey: "features.weatherAdvisor.title", descKey: "features.weatherAdvisor.description", link: "/weather", color: "accent" },
+    { icon: Sprout, titleKey: "features.cropPlanning.title", descKey: "features.cropPlanning.description", link: "/planner", color: "olive" },
+    { icon: Droplets, titleKey: "features.cropHealthScanner.title", descKey: "features.cropHealthScanner.description", link: "/crop-health", color: "terracotta" },
+    { icon: ShoppingBag, titleKey: "features.hardwareStore.title", descKey: "features.hardwareStore.description", link: "/store", color: "primary" },
+    { icon: MessageCircle, titleKey: "features.aiChatbot.title", descKey: "features.aiChatbot.description", link: "/chatbot", color: "accent" },
+    { icon: Leaf, titleKey: "features.cropAdvisor.title", descKey: "features.cropAdvisor.description", link: "/advisor", color: "olive" },
+    { icon: FlaskConical, titleKey: "features.simulator.title", descKey: "features.simulator.description", link: "/simulator", color: "terracotta" },
+    { icon: BarChart3, titleKey: "features.harvestPredictor.title", descKey: "features.harvestPredictor.description", link: "/predictor", color: "primary" },
+    { icon: TrendingUp, titleKey: "features.marketAdvisor.title", descKey: "features.marketAdvisor.description", link: "/market", color: "terracotta" },
+  ];
+
   return (
     <section id="features" className="py-24 bg-gradient-to-b from-muted/30 via-background to-muted/30 scroll-mt-20">
       <div className="container mx-auto px-6">
@@ -103,14 +46,13 @@ const Features = () => {
           transition={{ duration: 0.6 }}
         >
           <span className="inline-block text-sm font-semibold text-accent uppercase tracking-wider mb-4 bg-accent/20 px-4 py-2 rounded-full">
-            Features
+            {t('features.tagline', 'Features')}
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-            Smart Tools for <span className="text-primary">Modern Farming</span>
+            {t('features.title', 'Smart Tools for')} <span className="text-primary">{t('features.titleHighlight', 'Modern Farming')}</span>
           </h2>
           <p className="max-w-2xl mx-auto text-lg text-muted-foreground">
-            AgriNova combines AI technology with agricultural expertise to help you 
-            make better decisions every day. Explore our 9 powerful tools designed for your success.
+            {t('features.subtitle')}
           </p>
         </motion.div>
 
@@ -122,12 +64,12 @@ const Features = () => {
           viewport={{ once: true }}
         >
           {features.map((feature) => (
-            <motion.div key={feature.title} variants={item}>
+            <motion.div key={feature.link} variants={item}>
               <Link to={feature.link} className="block h-full group">
                 <FeatureCard
                   icon={feature.icon}
-                  title={feature.title}
-                  description={feature.description}
+                  title={t(feature.titleKey)}
+                  description={t(feature.descKey)}
                   delay={0}
                   colorVariant={feature.color}
                 />

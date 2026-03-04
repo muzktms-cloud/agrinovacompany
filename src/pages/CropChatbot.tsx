@@ -20,7 +20,7 @@ const CropChatbot = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hello! I'm AgriNova's crop advisor. I can help you with questions about farming, pest control, crop health, irrigation, and more. What would you like to know today?",
+      content: t('chatbot.greeting'),
     },
   ]);
   const [input, setInput] = useState("");
@@ -56,7 +56,7 @@ const CropChatbot = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Failed to get response");
+        throw new Error(errorData.error || t('chatbot.failedResponse'));
       }
 
       if (!response.body) throw new Error("No response body");
@@ -106,10 +106,10 @@ const CropChatbot = () => {
       }
     } catch (error) {
       console.error("Chat error:", error);
-      toast.error(error instanceof Error ? error.message : "Failed to get response");
+      toast.error(error instanceof Error ? error.message : t('chatbot.failedResponse'));
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: "Sorry, I encountered an error. Please try again." },
+        { role: "assistant", content: t('chatbot.errorMessage') },
       ]);
     } finally {
       setIsLoading(false);
@@ -117,10 +117,10 @@ const CropChatbot = () => {
   };
 
   const suggestedQuestions = [
-    "How do I prevent aphids on my tomatoes?",
-    "What's the best time to plant rice?",
-    "How often should I water my wheat crop?",
-    "What are signs of nitrogen deficiency?",
+    t('chatbot.q1'),
+    t('chatbot.q2'),
+    t('chatbot.q3'),
+    t('chatbot.q4'),
   ];
 
   return (
@@ -137,8 +137,8 @@ const CropChatbot = () => {
               <Bot className="h-5 w-5 text-primary" />
             </div>
             <div>
-              <h1 className="font-display text-xl font-bold">Crop Advisor Chat</h1>
-              <p className="text-xs text-muted-foreground">AI-powered farming assistance</p>
+              <h1 className="font-display text-xl font-bold">{t('chatbot.title')}</h1>
+              <p className="text-xs text-muted-foreground">{t('chatbot.subtitle')}</p>
             </div>
           </div>
         </div>
@@ -149,7 +149,7 @@ const CropChatbot = () => {
           <CardHeader className="border-b py-3">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-accent" />
-              Chat with AgriNova AI
+              {t('chatbot.chatWith')}
             </CardTitle>
           </CardHeader>
           <CardContent className="flex-1 flex flex-col p-0 overflow-hidden">
@@ -158,22 +158,14 @@ const CropChatbot = () => {
                 {messages.map((message, index) => (
                   <div
                     key={index}
-                    className={`flex gap-3 ${
-                      message.role === "user" ? "justify-end" : "justify-start"
-                    }`}
+                    className={`flex gap-3 ${message.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     {message.role === "assistant" && (
                       <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                         <Bot className="h-4 w-4 text-primary" />
                       </div>
                     )}
-                    <div
-                      className={`max-w-[80%] rounded-2xl px-4 py-2 ${
-                        message.role === "user"
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted"
-                      }`}
-                    >
+                    <div className={`max-w-[80%] rounded-2xl px-4 py-2 ${message.role === "user" ? "bg-primary text-primary-foreground" : "bg-muted"}`}>
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                     </div>
                     {message.role === "user" && (
@@ -198,16 +190,10 @@ const CropChatbot = () => {
 
             {messages.length === 1 && (
               <div className="p-4 border-t">
-                <p className="text-xs text-muted-foreground mb-2">Try asking:</p>
+                <p className="text-xs text-muted-foreground mb-2">{t('chatbot.tryAsking')}:</p>
                 <div className="flex flex-wrap gap-2">
                   {suggestedQuestions.map((question, index) => (
-                    <Button
-                      key={index}
-                      variant="outline"
-                      size="sm"
-                      className="text-xs"
-                      onClick={() => setInput(question)}
-                    >
+                    <Button key={index} variant="outline" size="sm" className="text-xs" onClick={() => setInput(question)}>
                       {question}
                     </Button>
                   ))}
@@ -219,7 +205,7 @@ const CropChatbot = () => {
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about crops, pests, watering..."
+                placeholder={t('chatbot.placeholder')}
                 disabled={isLoading}
                 className="flex-1"
               />
