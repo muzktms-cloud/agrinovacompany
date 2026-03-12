@@ -87,7 +87,7 @@ const LanguageChooser = ({ onLanguageSelect }: LanguageChooserProps) => {
               className="font-display text-3xl md:text-4xl font-bold mb-3"
             >
               <span className="bg-gradient-to-r from-primary via-accent to-[hsl(var(--coral))] bg-clip-text text-transparent">
-                Welcome to AgriNova
+                {t('language.welcome', 'Welcome to AgriNova')}
               </span>
             </motion.h1>
             <motion.p 

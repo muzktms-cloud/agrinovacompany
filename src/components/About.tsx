@@ -99,22 +99,22 @@ const About = () => {
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[
-              { country: "India", flag: "🇮🇳", crops: "Rice, Wheat, Cotton, Sugarcane" },
-              { country: "Bangladesh", flag: "🇧🇩", crops: "Rice, Jute, Tea, Vegetables" },
-              { country: "Pakistan", flag: "🇵🇰", crops: "Wheat, Cotton, Rice, Maize" },
-              { country: "Sri Lanka", flag: "🇱🇰", crops: "Tea, Rice, Coconut, Spices" },
-              { country: "Nepal", flag: "🇳🇵", crops: "Rice, Maize, Wheat, Millet" },
-              { country: "Bhutan", flag: "🇧🇹", crops: "Rice, Maize, Potatoes, Oranges" },
-              { country: "Maldives", flag: "🇲🇻", crops: "Coconut, Banana, Papaya, Breadfruit" },
+              { key: "india", flag: "🇮🇳" },
+              { key: "bangladesh", flag: "🇧🇩" },
+              { key: "pakistan", flag: "🇵🇰" },
+              { key: "sriLanka", flag: "🇱🇰" },
+              { key: "nepal", flag: "🇳🇵" },
+              { key: "bhutan", flag: "🇧🇹" },
+              { key: "maldives", flag: "🇲🇻" },
             ].map((region) => (
               <motion.div 
-                key={region.country} 
+                key={region.key} 
                 className="bg-background/80 rounded-xl p-4 hover:bg-background transition-all hover:shadow-lg hover:-translate-y-1 cursor-default"
                 whileHover={{ scale: 1.02 }}
               >
                 <div className="text-3xl mb-2">{region.flag}</div>
-                <div className="font-semibold text-foreground">{region.country}</div>
-                <div className="text-xs text-muted-foreground">{region.crops}</div>
+                <div className="font-semibold text-foreground">{t(`about.regions.countries.${region.key}`)}</div>
+                <div className="text-xs text-muted-foreground">{t(`about.regions.crops.${region.key}`)}</div>
               </motion.div>
             ))}
           </div>
