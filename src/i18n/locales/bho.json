@@ -403,6 +403,7 @@
     "weatherFallback": "आज के खेती सलाह खातिर मौसम सलाहकार देखीं!"
   },
   "language": {
+    "welcome": "AgriNova में स्वागत बा",
     "chooseLanguage": "आपन भाषा चुनीं",
     "chooseLanguageSubtitle": "ऊ भाषा चुनीं जवना में रउआ सबसे आरामदायक बानी। बाद में बदल सकीं।",
     "featured": "विशेष",
