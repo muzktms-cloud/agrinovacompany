@@ -72,7 +72,7 @@ const Hero = () => {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <span className="font-semibold text-harvest">Predict, Protect, Prosper.</span>
+          <span className="font-semibold text-harvest">{t('hero.tagline', 'Predict, Protect, Prosper.')}</span>
         </motion.p>
         
         <motion.p 

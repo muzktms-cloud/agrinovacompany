@@ -403,6 +403,7 @@
     "weatherFallback": "Check the Weather Advisor for today's farming recommendations!"
   },
   "language": {
+    "welcome": "Welcome to AgriNova",
     "chooseLanguage": "Choose Your Language",
     "chooseLanguageSubtitle": "Select the language you're most comfortable with. You can change this later.",
     "featured": "Featured",
