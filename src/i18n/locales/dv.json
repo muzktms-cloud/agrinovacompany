@@ -403,6 +403,7 @@
     "weatherFallback": "މިއަދުގެ ދަނޑުވެރި ނަސޭޙަތް ހޯދަން މޫސުން އެޑްވައިޒަރ ބަލާ!"
   },
   "language": {
+    "welcome": "AgriNova އަށް މަރުޙަބާ",
     "chooseLanguage": "ތިބާގެ ބަސް ހޮވާ",
     "chooseLanguageSubtitle": "ތިބާއަށް އެންމެ ފަސޭހަ ބަސް ހޮވާ. ފަހުން ބަދަލުކުރެވޭ.",
     "featured": "ފީޗާޑް",
