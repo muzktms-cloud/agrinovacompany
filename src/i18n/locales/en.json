@@ -73,7 +73,25 @@
     },
     "regions": {
       "title": "Our Operating Regions",
-      "description": "AgriNova primarily serves farmers across Southern Asia, with specialized knowledge of local crops, climate patterns, and agricultural practices:"
+      "description": "AgriNova primarily serves farmers across Southern Asia, with specialized knowledge of local crops, climate patterns, and agricultural practices:",
+      "countries": {
+        "india": "India",
+        "bangladesh": "Bangladesh",
+        "pakistan": "Pakistan",
+        "sriLanka": "Sri Lanka",
+        "nepal": "Nepal",
+        "bhutan": "Bhutan",
+        "maldives": "Maldives"
+      },
+      "crops": {
+        "india": "Rice, Wheat, Cotton, Sugarcane",
+        "bangladesh": "Rice, Jute, Tea, Vegetables",
+        "pakistan": "Wheat, Cotton, Rice, Maize",
+        "sriLanka": "Tea, Rice, Coconut, Spices",
+        "nepal": "Rice, Maize, Wheat, Millet",
+        "bhutan": "Rice, Maize, Potatoes, Oranges",
+        "maldives": "Coconut, Banana, Papaya, Breadfruit"
+      }
     },
     "sdg": {
       "tagline": "Our Global Commitment",
