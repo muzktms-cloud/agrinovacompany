@@ -188,7 +188,31 @@
     "orderPlacedDesc": "Your order has been placed. We'll contact you shortly.",
     "perMonth": "/month",
     "errorLoading": "Error loading products",
-    "addedToCart": "Added to cart!"
+    "addedToCart": "Added to cart!",
+    "allCategories": "All Categories",
+    "searchProducts": "Search products...",
+    "featured": "Featured",
+    "bestSeller": "Best Seller",
+    "newArrival": "New Arrival",
+    "freeShipping": "Free Shipping",
+    "warranty": "Warranty",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "rating": "Rating",
+    "reviews": "reviews",
+    "specifications": "Specifications",
+    "quantity": "Qty",
+    "itemsInCart": "items in cart",
+    "continueShopping": "Continue Shopping",
+    "emptyStoreDesc": "No products available right now. Check back later!",
+    "categories": {
+      "sensors": "Sensors",
+      "controllers": "Controllers",
+      "drones": "Drones",
+      "irrigation": "Irrigation",
+      "weatherStations": "Weather Stations",
+      "kits": "Starter Kits"
+    }
   },
   "weather": {
     "title": "Weather Advisor",
