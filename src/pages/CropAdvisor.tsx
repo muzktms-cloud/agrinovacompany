@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import { crops, regions, soilTypes as soilTypesList } from "@/constants/agriculture-data";
 import { useTranslation } from "react-i18next";
+import DataDisclaimer from "@/components/DataDisclaimer";
 
 type AdviceData = { dailyTip?: string; wateringAdvice?: string; fertilizerAdvice?: string; pestWatch?: string; weatherConsiderations?: string; upcomingTasks?: string[]; harvestEstimate?: string; marketTips?: string; sustainabilityTip?: string; };
 
@@ -76,6 +77,9 @@ const CropAdvisor = () => {
       </header>
 
       <main className="container mx-auto px-4 py-8 max-w-5xl">
+        <div className="mb-6">
+          <DataDisclaimer sources={["ICAR Package of Practices", "Open-Meteo (real-time weather)", "FAO crop guidelines", "KVK recommendations"]} verifyLinks={[{ label: "eNAM", url: "https://enam.gov.in" }, { label: "Agmarknet", url: "https://agmarknet.gov.in" }]} />
+        </div>
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
           <Card className="mb-8 glass-card border-primary/20 overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-accent/5 pointer-events-none" />

@@ -15,6 +15,7 @@ import { crops, regions, featuredRegions, seasons } from "@/constants/agricultur
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { useTranslation } from "react-i18next";
+import DataDisclaimer from "@/components/DataDisclaimer";
 
 interface MarketAnalysis {
   currentPrice: number; predictedPrice: number; priceChange: number; trend: "up" | "down" | "stable";
@@ -95,6 +96,10 @@ const MarketAdvisor = () => {
           </h1>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">{t('market.subtitle')}</p>
         </motion.div>
+
+        <div className="mb-6">
+          <DataDisclaimer sources={["Government MSP 2024-25", "APMC market patterns", "Seasonal price trends"]} verifyLinks={[{ label: "eNAM", url: "https://enam.gov.in" }, { label: "Agmarknet", url: "https://agmarknet.gov.in" }]} />
+        </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.1 }}>

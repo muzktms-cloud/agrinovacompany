@@ -19,44 +19,69 @@ serve(async (req) => {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    const systemPrompt = `You are an expert agricultural analyst with access to global crop data, weather patterns, and market trends for Southern Asia (India, Bangladesh, Pakistan, Sri Lanka, Nepal, Bhutan, Maldives).
+    // Fetch real weather forecast for the region
+    let weatherContext = "";
+    try {
+      const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(region)}&count=1`);
+      const geoData = await geoRes.json();
+      if (geoData.results?.length > 0) {
+        const { latitude, longitude } = geoData.results[0];
+        const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max&timezone=auto&forecast_days=14`);
+        const weather = await weatherRes.json();
+        if (weather.daily) {
+          weatherContext = `
+REAL 14-DAY WEATHER FORECAST for ${region} (Open-Meteo, fetched now):
+- Dates: ${weather.daily.time.join(", ")}
+- Max temps: ${weather.daily.temperature_2m_max.join(", ")}°C
+- Min temps: ${weather.daily.temperature_2m_min.join(", ")}°C
+- Precipitation: ${weather.daily.precipitation_sum.join(", ")} mm
+- Rain probability: ${weather.daily.precipitation_probability_max.join(", ")}%
 
-Provide harvest predictions based on:
-- Historical yield data for the region
-- Current weather patterns and forecasts
-- Market price trends
-- Common pest and disease patterns
-- Regional agricultural challenges
+Use this REAL forecast data for the weather outlook section.`;
+        }
+      }
+    } catch (e) {
+      console.error("Weather fetch failed:", e);
+    }
 
-Always respond in JSON format with these exact fields:
+    const today = new Date().toISOString().split('T')[0];
+
+    const systemPrompt = `You are an agricultural analyst providing harvest predictions for South Asian farmers. Today is ${today}.
+
+CRITICAL ACCURACY RULES:
+1. **Yield estimates**: Use ONLY official data ranges from ICAR, state agricultural departments, and FAO crop statistics. For example, Indian national average rice yield is ~2.7 tonnes/hectare (DES, Ministry of Agriculture data). Quote the standard range, not a single number.
+2. **Market prices**: Reference the Government of India's MSP (Minimum Support Price) as a baseline. For 2024-25: Rice MSP is ₹2,300/quintal, Wheat MSP is ₹2,275/quintal. Tell farmers to check REAL prices at eNAM (enam.gov.in) or Agmarknet (agmarknet.gov.in). Do NOT invent specific market prices.
+3. **Weather outlook**: Use the REAL weather data provided below. Do NOT fabricate weather predictions.
+4. **Potential problems**: Base pest/disease risks on IPM guidelines from NCIPM (National Centre for Integrated Pest Management) and the actual season.
+5. **Confidence score**: Be honest. Without real field data, confidence should be 50-70%, not higher.
+6. Always mention these as estimates based on historical averages and standard agricultural data.
+${weatherContext}
+
+Respond in JSON format:
 {
-  "harvestYield": "X quintals/acre",
-  "yieldTrend": "+X% or -X%",
-  "marketPrice": "₹X,XXX/quintal",
-  "priceTrend": "+X% expected or -X% expected",
-  "weatherOutlook": "Description of expected weather conditions until harvest",
+  "harvestYield": "X-Y quintals/acre (based on [source] average for this region)",
+  "yieldTrend": "+X% to -Y% depending on weather and management",
+  "marketPrice": "MSP: ₹X,XXX/quintal. Check eNAM for current mandi rates.",
+  "priceTrend": "Based on historical seasonal patterns",
+  "weatherOutlook": "Based on the REAL 14-day forecast data above",
   "potentialProblems": [
-    {"issue": "Problem name", "probability": "X%", "severity": "Low/Medium/High"},
-    {"issue": "Problem name", "probability": "X%", "severity": "Low/Medium/High"},
-    {"issue": "Problem name", "probability": "X%", "severity": "Low/Medium/High"}
+    {"issue": "Real pest/disease for this crop-season", "probability": "X%", "severity": "Level"},
+    {"issue": "Real problem", "probability": "X%", "severity": "Level"},
+    {"issue": "Real problem", "probability": "X%", "severity": "Level"}
   ],
-  "marketAnalysis": "Analysis of market conditions and best time to sell",
-  "recommendations": ["recommendation1", "recommendation2", "recommendation3", "recommendation4"],
-  "confidenceScore": "X%"
+  "marketAnalysis": "Reference MSP, historical trends, and direct to eNAM/Agmarknet for real prices",
+  "recommendations": ["Evidence-based recommendation 1", "recommendation 2", "recommendation 3", "recommendation 4"],
+  "confidenceScore": "55-65% (limited by available real-time field data)",
+  "dataSources": "ICAR, DES (Directorate of Economics & Statistics), Open-Meteo, Government MSP rates"
 }`;
 
-    const userPrompt = `Predict the harvest outcomes for:
+    const userPrompt = `Predict harvest outcomes for:
 - Crop: ${crop}
 - Region: ${region}
 - Planting Date: ${plantingDate}
-${fieldConditions ? `- Current Field Conditions: ${fieldConditions}` : ""}
+${fieldConditions ? `- Field Conditions: ${fieldConditions}` : ""}
 
-Based on global agricultural data and regional patterns, provide predictions for:
-1. Expected yield compared to regional averages
-2. Market price trends and best selling window
-3. Potential problems and their likelihood
-4. Weather outlook until expected harvest
-5. Actionable recommendations${language && language !== 'en' ? `\n\nIMPORTANT: Write all text values in the language with code "${language}". Keep JSON keys in English.` : ''}`;
+Use official agricultural data and real weather. Be honest about uncertainty.${language && language !== 'en' ? `\n\nIMPORTANT: Write all text values in the language with code "${language}". Keep JSON keys in English.` : ''}`;
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
@@ -65,7 +90,7 @@ Based on global agricultural data and regional patterns, provide predictions for
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
+        model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
@@ -85,7 +110,7 @@ Based on global agricultural data and regional patterns, provide predictions for
       }
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: "Payment required. Please add credits to continue." }),
+          JSON.stringify({ error: "Service temporarily unavailable. Please try again later." }),
           { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
@@ -100,9 +125,6 @@ Based on global agricultural data and regional patterns, provide predictions for
       throw new Error("No content in AI response");
     }
 
-    console.log("AI response:", content);
-
-    // Parse JSON from the response
     const jsonMatch = content.match(/\{[\s\S]*\}/);
     if (!jsonMatch) {
       throw new Error("Could not parse JSON from response");

@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { crops, regions } from "@/constants/agriculture-data";
 import { useTranslation } from "react-i18next";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import DataDisclaimer from "@/components/DataDisclaimer";
 
 interface PredictionResult {
   harvestYield: string; yieldTrend: string; marketPrice: string; priceTrend: string; weatherOutlook: string;
@@ -72,6 +73,10 @@ const HarvestPredictor = () => {
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('predictor.subtitle')}</p>
         </motion.div>
+
+        <div className="mb-6">
+          <DataDisclaimer sources={["ICAR yield data", "DES (Ministry of Agriculture)", "Open-Meteo weather forecast", "Government MSP rates"]} verifyLinks={[{ label: "eNAM", url: "https://enam.gov.in" }, { label: "Agmarknet", url: "https://agmarknet.gov.in" }]} />
+        </div>
 
         <div className="grid lg:grid-cols-2 gap-8">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
