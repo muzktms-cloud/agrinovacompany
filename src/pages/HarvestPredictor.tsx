@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { crops, regions } from "@/constants/agriculture-data";
 import { useTranslation } from "react-i18next";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import DataDisclaimer from "@/components/DataDisclaimer";
 
 interface PredictionResult {
   harvestYield: string; yieldTrend: string; marketPrice: string; priceTrend: string; weatherOutlook: string;
