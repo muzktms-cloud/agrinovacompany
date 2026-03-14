@@ -111,6 +111,10 @@ const WeatherAdvisor = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('weather.subtitle')}</p>
         </motion.div>
 
+        <div className="mb-6">
+          <DataDisclaimer sources={["Open-Meteo (real-time weather)", "ICAR guidelines", "FAO crop data"]} />
+        </div>
+
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
           <Card className="mb-8 glass-card border-border/50 overflow-hidden relative">
             <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--sky))]/5 via-transparent to-[hsl(var(--mint))]/5 pointer-events-none" />

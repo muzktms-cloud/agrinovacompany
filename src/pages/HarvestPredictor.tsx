@@ -74,6 +74,10 @@ const HarvestPredictor = () => {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('predictor.subtitle')}</p>
         </motion.div>
 
+        <div className="mb-6">
+          <DataDisclaimer sources={["ICAR yield data", "DES (Ministry of Agriculture)", "Open-Meteo weather forecast", "Government MSP rates"]} verifyLinks={[{ label: "eNAM", url: "https://enam.gov.in" }, { label: "Agmarknet", url: "https://agmarknet.gov.in" }]} />
+        </div>
+
         <div className="grid lg:grid-cols-2 gap-8">
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
             <Card className="border-border/50 glass-card overflow-hidden relative">
