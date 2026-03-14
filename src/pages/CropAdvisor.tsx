@@ -11,6 +11,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { motion } from "framer-motion";
 import { crops, regions, soilTypes as soilTypesList } from "@/constants/agriculture-data";
 import { useTranslation } from "react-i18next";
+import DataDisclaimer from "@/components/DataDisclaimer";
 
 type AdviceData = { dailyTip?: string; wateringAdvice?: string; fertilizerAdvice?: string; pestWatch?: string; weatherConsiderations?: string; upcomingTasks?: string[]; harvestEstimate?: string; marketTips?: string; sustainabilityTip?: string; };
 
