@@ -15,6 +15,7 @@ import CropAdvisor from "./pages/CropAdvisor";
 import CropSimulator from "./pages/CropSimulator";
 import HarvestPredictor from "./pages/HarvestPredictor";
 import MarketAdvisor from "./pages/MarketAdvisor";
+import Courses from "./pages/Courses";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
