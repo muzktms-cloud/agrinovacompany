@@ -33,6 +33,7 @@ const Features = () => {
     { icon: FlaskConical, titleKey: "features.simulator.title", descKey: "features.simulator.description", link: "/simulator", color: "terracotta" },
     { icon: BarChart3, titleKey: "features.harvestPredictor.title", descKey: "features.harvestPredictor.description", link: "/predictor", color: "primary" },
     { icon: TrendingUp, titleKey: "features.marketAdvisor.title", descKey: "features.marketAdvisor.description", link: "/market", color: "terracotta" },
+    { icon: GraduationCap, titleKey: "features.courses.title", descKey: "features.courses.description", link: "/courses", color: "accent" },
   ];
 
   return (
