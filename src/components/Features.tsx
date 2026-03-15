@@ -1,4 +1,4 @@
-import { Cloud, Droplets, Sprout, Bug, MessageCircle, Leaf, ShoppingBag, FlaskConical, BarChart3, TrendingUp } from "lucide-react";
+import { Cloud, Droplets, Sprout, Bug, MessageCircle, Leaf, ShoppingBag, FlaskConical, BarChart3, TrendingUp, GraduationCap } from "lucide-react";
 import { Link } from "react-router-dom";
 import FeatureCard from "./FeatureCard";
 import { motion } from "framer-motion";
@@ -33,6 +33,7 @@ const Features = () => {
     { icon: FlaskConical, titleKey: "features.simulator.title", descKey: "features.simulator.description", link: "/simulator", color: "terracotta" },
     { icon: BarChart3, titleKey: "features.harvestPredictor.title", descKey: "features.harvestPredictor.description", link: "/predictor", color: "primary" },
     { icon: TrendingUp, titleKey: "features.marketAdvisor.title", descKey: "features.marketAdvisor.description", link: "/market", color: "terracotta" },
+    { icon: GraduationCap, titleKey: "features.courses.title", descKey: "features.courses.description", link: "/courses", color: "accent" },
   ];
 
   return (

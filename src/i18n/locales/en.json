@@ -58,7 +58,8 @@
     "cropAdvisor": { "title": "Personal Crop Advisor", "description": "Enter your crop and location to receive tailored daily guidance, from planting to harvest." },
     "simulator": { "title": "What-If Simulator", "description": "Simulate different crop scenarios for next year and see projected outcomes before committing." },
     "harvestPredictor": { "title": "Harvest Predictor", "description": "Get predictions on harvest yields, potential problems, and market trends based on global data." },
-    "marketAdvisor": { "title": "Market Advisor", "description": "Get AI-powered market price estimates, demand forecasts, and profitability analysis for your crops." }
+    "marketAdvisor": { "title": "Market Advisor", "description": "Get AI-powered market price estimates, demand forecasts, and profitability analysis for your crops." },
+    "courses": { "title": "Courses & Training", "description": "Expert-led farming courses — online for ₹500 or in-person for ₹1,000. Learn to farm smarter and master our AgriTech tools." }
   },
   "about": {
     "tagline": "About AgriNova",
