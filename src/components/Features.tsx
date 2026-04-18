@@ -34,6 +34,7 @@ const Features = () => {
     { icon: BarChart3, titleKey: "features.harvestPredictor.title", descKey: "features.harvestPredictor.description", link: "/predictor", color: "primary" },
     { icon: TrendingUp, titleKey: "features.marketAdvisor.title", descKey: "features.marketAdvisor.description", link: "/market", color: "terracotta" },
     { icon: GraduationCap, titleKey: "features.courses.title", descKey: "features.courses.description", link: "/courses", color: "accent" },
+    { icon: Beaker, titleKey: "features.boosters.title", descKey: "features.boosters.description", link: "/boosters", color: "olive" },
   ];
 
   return (
