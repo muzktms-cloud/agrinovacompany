@@ -61,6 +61,68 @@
     "marketAdvisor": { "title": "Market Advisor", "description": "Get AI-powered market price estimates, demand forecasts, and profitability analysis for your crops." },
     "courses": { "title": "Courses & Training", "description": "Expert-led farming courses — online for ₹500 or in-person for ₹1,000. Learn to farm smarter and master our AgriTech tools." }
   },
+  "coursesPage": {
+    "tagline": "Learn • Grow • Prosper",
+    "heroTitle": "Master Modern Farming with",
+    "heroTitleHighlight": "Expert-Led Courses",
+    "heroSubtitle": "Practical, hands-on training from agronomists and AgriTech specialists. Choose self-paced online lessons or join an in-person workshop in your region.",
+    "online": "Online",
+    "inPerson": "In-Person",
+    "perCourse": "/ course",
+    "onlineDesc": "Self-paced video lessons, downloadable guides, and a completion certificate.",
+    "inPersonDesc": "Hands-on field workshops with live demos of our sensors, drones and tools.",
+    "popular": "POPULAR",
+    "allCourses": "All Courses",
+    "hours": "hours",
+    "lessons": "lessons",
+    "bundleTitle": "Save Big with the Full Bundle",
+    "bundleDesc": "Get all 7 courses at a discounted rate. Become a certified AgriNova Smart Farmer and unlock free hardware setup support.",
+    "bundleOnline": "All Courses Online",
+    "bundleInPerson": "All Courses In-Person",
+    "levels": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced",
+      "all": "All Levels"
+    },
+    "list": {
+      "smartFarming": {
+        "title": "Smart Farming 101",
+        "description": "The fundamentals of modern, data-driven farming for every smallholder.",
+        "topics": { "soil": "Soil health & testing", "seed": "Seed selection & spacing", "rotation": "Crop rotation strategies", "water": "Water management basics" }
+      },
+      "pestManagement": {
+        "title": "Integrated Pest Management",
+        "description": "Identify, prevent and treat pests using safe, sustainable techniques.",
+        "topics": { "pestId": "Pest identification", "organic": "Organic pesticides", "ipm": "IPM principles", "biological": "Biological control" }
+      },
+      "irrigation": {
+        "title": "Smart Irrigation Mastery",
+        "description": "Design efficient irrigation systems that save water and boost yields.",
+        "topics": { "drip": "Drip irrigation setup", "sprinkler": "Sprinkler systems", "scheduling": "Watering schedules", "sensors": "Soil moisture sensors" }
+      },
+      "hardware": {
+        "title": "AgriTech Hardware Training",
+        "description": "Install, operate and maintain every device sold in our Hardware Store.",
+        "topics": { "install": "Sensor installation", "drone": "Drone piloting basics", "data": "Reading dashboards", "maintenance": "Routine maintenance" }
+      },
+      "business": {
+        "title": "Farm Business & Markets",
+        "description": "Turn your harvest into profit with smart pricing and market access.",
+        "topics": { "msp": "Understanding MSP", "mandi": "Mandi pricing", "direct": "Direct-to-consumer sales", "records": "Record keeping" }
+      },
+      "organic": {
+        "title": "Certified Organic Farming",
+        "description": "Transition to certified organic and command premium market prices.",
+        "topics": { "certification": "Certification process", "compost": "Composting techniques", "natural": "Natural fertilisers", "premium": "Premium market access" }
+      },
+      "greenhouse": {
+        "title": "Greenhouse & Polyhouse Farming",
+        "description": "Grow high-value crops year-round in controlled environments.",
+        "topics": { "structure": "Choosing the right structure", "climate": "Climate control", "highvalue": "High-value crop selection", "yield": "Maximising yield per square metre" }
+      }
+    }
+  },
   "about": {
     "tagline": "About AgriNova",
     "title": "Empowering Farmers Across",
