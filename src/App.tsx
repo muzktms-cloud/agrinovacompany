@@ -16,6 +16,7 @@ import CropSimulator from "./pages/CropSimulator";
 import HarvestPredictor from "./pages/HarvestPredictor";
 import MarketAdvisor from "./pages/MarketAdvisor";
 import Courses from "./pages/Courses";
+import PlantBoosters from "./pages/PlantBoosters";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
             <Route path="/predictor" element={<HarvestPredictor />} />
             <Route path="/market" element={<MarketAdvisor />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/boosters" element={<PlantBoosters />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

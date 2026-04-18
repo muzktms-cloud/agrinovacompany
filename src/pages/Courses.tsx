@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, Video, Users, Clock, Star, CheckCircle2, Sprout, Bug, Droplets, Wrench, BarChart3, Leaf, Home } from "lucide-react";
+import { ArrowLeft, BookOpen, Video, Users, Clock, Star, CheckCircle2, Sprout, Bug, Droplets, Wrench, BarChart3, Leaf, Home, FlaskConical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -16,6 +16,7 @@ const courseData = [
   { id: "business", icon: BarChart3, duration: "4", lessons: 8, level: "beginner", color: "primary", topics: ["msp", "mandi", "direct", "records"] },
   { id: "organic", icon: Leaf, duration: "6", lessons: 11, level: "advanced", color: "accent", topics: ["certification", "compost", "natural", "premium"] },
   { id: "greenhouse", icon: Home, duration: "7", lessons: 13, level: "advanced", color: "olive", topics: ["structure", "climate", "highvalue", "yield"] },
+  { id: "bioInputs", icon: FlaskConical, duration: "5", lessons: 10, level: "intermediate", color: "accent", topics: ["application", "timing", "dosage", "storage"] },
 ];
 
 const colorMap: Record<string, { bg: string; icon: string }> = {
@@ -161,24 +162,6 @@ const Courses = () => {
           })}
         </motion.div>
 
-        <motion.div className="mt-16 rounded-2xl bg-gradient-to-r from-primary/10 via-accent/10 to-olive/10 border border-border/50 p-8 md:p-12 text-center" initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-3">
-            {t("coursesPage.bundleTitle")} 🎓
-          </h2>
-          <p className="text-muted-foreground max-w-lg mx-auto mb-6">
-            {t("coursesPage.bundleDesc")}
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button size="lg" className="gap-2">
-              <Video className="h-4 w-4" />
-              {t("coursesPage.bundleOnline")} — ₹2,500
-            </Button>
-            <Button size="lg" variant="outline" className="gap-2">
-              <Users className="h-4 w-4" />
-              {t("coursesPage.bundleInPerson")} — ₹5,000
-            </Button>
-          </div>
-        </motion.div>
       </div>
     </div>
   );

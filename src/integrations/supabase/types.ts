@@ -172,6 +172,57 @@ export type Database = {
         }
         Relationships: []
       }
+      plant_boosters: {
+        Row: {
+          category: string
+          consequences: string | null
+          created_at: string
+          description: string | null
+          how_to_use: string | null
+          id: string
+          image_url: string | null
+          in_stock: boolean | null
+          name: string
+          price_rupees: number
+          results: string | null
+          safe_for: string | null
+          unit: string
+          where_to_apply: string | null
+        }
+        Insert: {
+          category: string
+          consequences?: string | null
+          created_at?: string
+          description?: string | null
+          how_to_use?: string | null
+          id?: string
+          image_url?: string | null
+          in_stock?: boolean | null
+          name: string
+          price_rupees: number
+          results?: string | null
+          safe_for?: string | null
+          unit?: string
+          where_to_apply?: string | null
+        }
+        Update: {
+          category?: string
+          consequences?: string | null
+          created_at?: string
+          description?: string | null
+          how_to_use?: string | null
+          id?: string
+          image_url?: string | null
+          in_stock?: boolean | null
+          name?: string
+          price_rupees?: number
+          results?: string | null
+          safe_for?: string | null
+          unit?: string
+          where_to_apply?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
