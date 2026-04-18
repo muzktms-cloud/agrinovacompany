@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, Video, Users, Clock, Star, CheckCircle2, Sprout, Bug, Droplets, Wrench, BarChart3, Leaf } from "lucide-react";
+import { ArrowLeft, BookOpen, Video, Users, Clock, Star, CheckCircle2, Sprout, Bug, Droplets, Wrench, BarChart3, Leaf, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
