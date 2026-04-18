@@ -1,4 +1,4 @@
-import { Cloud, Droplets, Sprout, Bug, MessageCircle, Leaf, ShoppingBag, FlaskConical, BarChart3, TrendingUp, GraduationCap } from "lucide-react";
+import { Cloud, Droplets, Sprout, Bug, MessageCircle, Leaf, ShoppingBag, FlaskConical, BarChart3, TrendingUp, GraduationCap, Beaker } from "lucide-react";
 import { Link } from "react-router-dom";
 import FeatureCard from "./FeatureCard";
 import { motion } from "framer-motion";
