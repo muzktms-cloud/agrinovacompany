@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, BookOpen, Video, Users, Clock, Star, CheckCircle2, Sprout, Bug, Droplets, Wrench, BarChart3, Leaf } from "lucide-react";
+import { ArrowLeft, BookOpen, Video, Users, Clock, Star, CheckCircle2, Sprout, Bug, Droplets, Wrench, BarChart3, Leaf, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,6 +15,7 @@ const courseData = [
   { id: "hardware", icon: Wrench, duration: "8", lessons: 15, level: "all", color: "terracotta", topics: ["install", "drone", "data", "maintenance"] },
   { id: "business", icon: BarChart3, duration: "4", lessons: 8, level: "beginner", color: "primary", topics: ["msp", "mandi", "direct", "records"] },
   { id: "organic", icon: Leaf, duration: "6", lessons: 11, level: "advanced", color: "accent", topics: ["certification", "compost", "natural", "premium"] },
+  { id: "greenhouse", icon: Home, duration: "7", lessons: 13, level: "advanced", color: "olive", topics: ["structure", "climate", "highvalue", "yield"] },
 ];
 
 const colorMap: Record<string, { bg: string; icon: string }> = {
@@ -33,7 +34,7 @@ const Courses = () => {
 
   const filteredCourses = selectedTab === "all"
     ? courseData
-    : courseData.filter(c => c.level === selectedTab || (selectedTab === "all" && c.level === "all"));
+    : courseData.filter(c => c.level === selectedTab || c.level === "all");
 
   return (
     <div className="min-h-screen bg-background">
