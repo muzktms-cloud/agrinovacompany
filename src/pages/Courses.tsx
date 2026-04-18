@@ -16,6 +16,7 @@ const courseData = [
   { id: "business", icon: BarChart3, duration: "4", lessons: 8, level: "beginner", color: "primary", topics: ["msp", "mandi", "direct", "records"] },
   { id: "organic", icon: Leaf, duration: "6", lessons: 11, level: "advanced", color: "accent", topics: ["certification", "compost", "natural", "premium"] },
   { id: "greenhouse", icon: Home, duration: "7", lessons: 13, level: "advanced", color: "olive", topics: ["structure", "climate", "highvalue", "yield"] },
+  { id: "bioInputs", icon: FlaskConical, duration: "5", lessons: 10, level: "intermediate", color: "accent", topics: ["application", "timing", "dosage", "storage"] },
 ];
 
 const colorMap: Record<string, { bg: string; icon: string }> = {
