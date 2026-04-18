@@ -34,7 +34,7 @@ const Courses = () => {
 
   const filteredCourses = selectedTab === "all"
     ? courseData
-    : courseData.filter(c => c.level === selectedTab || (selectedTab === "all" && c.level === "all"));
+    : courseData.filter(c => c.level === selectedTab || c.level === "all");
 
   return (
     <div className="min-h-screen bg-background">
