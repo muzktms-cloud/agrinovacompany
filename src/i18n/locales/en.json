@@ -118,8 +118,45 @@
         "title": "Greenhouse & Polyhouse Farming",
         "description": "Grow high-value crops year-round in controlled environments.",
         "topics": { "structure": "Choosing the right structure", "climate": "Climate control", "highvalue": "High-value crop selection", "yield": "Maximising yield per square metre" }
+      },
+      "bioInputs": {
+        "title": "Bio-Inputs Mastery",
+        "description": "Master the safe and effective use of biostimulants, microbial inoculants and organic amendments — when, where, how much, and what to avoid.",
+        "topics": { "application": "Application methods", "timing": "Timing & crop stage", "dosage": "Correct dosage & dilution", "storage": "Storage & shelf life" }
       }
     }
+  },
+  "boostersPage": {
+    "tagline": "Regenerative • Soil-Safe • Fairly Priced",
+    "heroTitle": "Bio-Inputs &",
+    "heroTitleHighlight": "Plant Boosters",
+    "heroSubtitle": "Organic biostimulants, microbial inoculants, biochar and slow-release nutrients — sold at fair prices, with full instructions for every product. Build healthier soil that lasts decades, not seasons.",
+    "disclaimerTitle": "Read Before You Use",
+    "disclaimerText": "Every product comes with detailed guidance: how to apply it, where to apply (and where NOT), what happens if misused, and what results to expect. Always read the full instructions before opening the pack.",
+    "search": "Search bio-inputs...",
+    "allCategories": "All Categories",
+    "categories": {
+      "microbial": "Microbial Inoculants",
+      "biostimulant": "Biostimulants",
+      "soil-amendment": "Soil Amendments",
+      "organic-nutrient": "Organic Nutrients",
+      "seed-treatment": "Seed Treatments"
+    },
+    "viewDetails": "View Full Instructions",
+    "addToCart": "Add to Cart",
+    "howToUse": "How to Use",
+    "whereToApply": "Where to Apply (and Where NOT)",
+    "consequences": "Consequences of Misuse",
+    "results": "Expected Results",
+    "safeFor": "Safe For",
+    "cart": "Your Cart",
+    "cartEmpty": "Your cart is empty. Add bio-inputs to get started.",
+    "subtotal": "Subtotal",
+    "checkout": "Place Order",
+    "orderPlaced": "Order placed! We'll contact you shortly with delivery details.",
+    "perUnit": "per",
+    "outOfStock": "Out of Stock",
+    "loading": "Loading bio-inputs..."
   },
   "about": {
     "tagline": "About AgriNova",
