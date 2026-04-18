@@ -41,6 +41,7 @@ const App = () => (
             <Route path="/predictor" element={<HarvestPredictor />} />
             <Route path="/market" element={<MarketAdvisor />} />
             <Route path="/courses" element={<Courses />} />
+            <Route path="/boosters" element={<PlantBoosters />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
